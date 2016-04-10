@@ -27,10 +27,12 @@ public class LinearInterpolation: Interpolation {
     private let from: IPValue
     private let to: IPValue
     private let duration: CGFloat
+    private var chainedInterpolations = [Interpolation]()
+
     
     private var totalSteps: CGFloat = 0.0
     
-    private var displayLink: CADisplayLink?
+    public var displayLink: CADisplayLink?
     
     public init(from: Interpolatable, to: Interpolatable, duration: CGFloat, apply: (Interpolatable -> ())) {
         let fromVector = from.vectorize()
@@ -53,9 +55,18 @@ public class LinearInterpolation: Interpolation {
         }
         else {
             progress = 1.0
-            stop()
             apply(current.toInterpolatable())
+            completed = true
+            stop()
+            if chainedInterpolations.count > 0 {
+                let nextInterpolation = chainedInterpolations.first
+                nextInterpolation?.run()
+            }
         }
+    }
+    
+    public func chain(interpolation: Interpolation) {
+        chainedInterpolations.append(interpolation)
     }
     
     public func run() {

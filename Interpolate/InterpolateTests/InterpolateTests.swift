@@ -27,7 +27,6 @@ class InterpolateTests: XCTestCase {
     }
     
     func testPerformanceExample() {
-        let value = IPValue(value: NSValue(CGRect: CGRectMake(0, 0, 20, 20)))
 //        
 //        let linearInterpolation = LinearInterpolation(identifier: "Move", from: 1.0, to: 3.0, duration: 0.3)
 //        let simple = Interpolate(interpolations: [linearInterpolation]) { (interpolations) in
