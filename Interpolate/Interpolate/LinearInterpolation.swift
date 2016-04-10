@@ -12,7 +12,6 @@ public class LinearInterpolation: Interpolation {
     
     public var current: IPValue
     public var diffVectors = [CGFloat]()
-    public var completed = false
     public var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(progress, 1.0))
@@ -30,7 +29,6 @@ public class LinearInterpolation: Interpolation {
     private let to: IPValue
     private let duration: CGFloat
     
-    
     public var displayLink: CADisplayLink?
     
     public init(from: Interpolatable, to: Interpolatable, duration: CGFloat, apply: (Interpolatable -> ())) {
@@ -41,7 +39,6 @@ public class LinearInterpolation: Interpolation {
         self.to = toVector
         self.duration = duration
         self.apply = apply
-        
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
     
@@ -49,7 +46,6 @@ public class LinearInterpolation: Interpolation {
         progress += 1/(self.duration*60)
         if progress >= 1.0 {
             progress = 1.0
-            completed = true
             stop()
         }
     }
@@ -61,7 +57,6 @@ public class LinearInterpolation: Interpolation {
     }
     
     public func stop() {
-        completed = true
         displayLink?.invalidate()
     }
     

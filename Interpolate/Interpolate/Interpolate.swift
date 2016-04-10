@@ -12,7 +12,6 @@ public protocol Interpolation {
     
     var current: IPValue { get set }
     var progress: CGFloat { get set }
-    var completed: Bool { get set }
     var apply: (Interpolatable -> ()) { get set }
     var diffVectors: [CGFloat] { get set }
 
