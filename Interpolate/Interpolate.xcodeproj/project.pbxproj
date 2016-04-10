@@ -10,6 +10,7 @@
 		3448A0E61CBA2A1B00E818C2 /* Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3448A0E51CBA2A1B00E818C2 /* Interpolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3448A0ED1CBA2A1B00E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */; };
 		3448A0F21CBA2A1B00E818C2 /* InterpolateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */; };
+		3448A0FD1CBA2A4400E818C2 /* Interpolate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		3448A0EC1CBA2A1B00E818C2 /* InterpolateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterpolateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolateTests.swift; sourceTree = "<group>"; };
 		3448A0F31CBA2A1B00E818C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				3448A0E51CBA2A1B00E818C2 /* Interpolate.h */,
 				3448A0E71CBA2A1B00E818C2 /* Info.plist */,
+				3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */,
 			);
 			path = Interpolate;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3448A0FD1CBA2A4400E818C2 /* Interpolate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +314,7 @@
 		3448A0F71CBA2A1B00E818C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +325,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.roymarmelstein.Interpolate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3448A0F81CBA2A1B00E818C2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

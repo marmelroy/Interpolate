@@ -13,6 +13,13 @@ class InterpolateTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        let linearInterpolation = LinearInterpolation(identifier: "Move", from: 1.0, to: 3.0, duration: 0.3)
+        let simple = Interpolate(interpolations: [linearInterpolation]) { (interpolations) in
+            for interpolation in interpolations {
+                print("interpolation \(interpolation.identifier)")
+            }
+        }
+        simple.execute()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
