@@ -19,77 +19,21 @@ public protocol Interpolation {
     func run()
     func next()
     func stop()
+    
+    func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat]
 }
 
 
-public class LinearInterpolation: Interpolation {
-    
-    public var current: IPValue
-    public var diffVectors: [CGFloat]
-    public var completed = false
-    public var progress: CGFloat = 0.0 {
-        didSet {
-            let progressDiff = progress - oldValue
-            let vectorCount = from.vectors.count
-            for index in 0..<vectorCount {
-                current.vectors[index] += diffVectors[index]*progressDiff
-            }
-        }
-    }
-    public var apply: (Interpolatable -> ())
+extension Interpolation {
 
-    private let from: IPValue
-    private let to: IPValue
-    private let duration: CGFloat
-
-    private var totalSteps: CGFloat = 0.0
-
-    private var displayLink: CADisplayLink?
-    
-    public init(from: Interpolatable, to: Interpolatable, duration: CGFloat, apply: (Interpolatable -> ())) {
-        let fromVector = from.vectorize()
-        let toVector = to.vectorize()
-        self.current = fromVector
-        self.from = fromVector
-        self.to = toVector
-        self.duration = duration
-        self.apply = apply
-        
-        // Total steps
-        self.totalSteps = self.duration*60
-        
-        // Create diff array
+    public func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat] {
         var diffArray = [CGFloat]()
-        let vectorCount = fromVector.vectors.count
+        let vectorCount = from.vectors.count
         for index in 0..<vectorCount {
-            let vectorDiff = toVector.vectors[index] - fromVector.vectors[index]
+            let vectorDiff = to.vectors[index] - from.vectors[index]
             diffArray.append(vectorDiff)
         }
-        self.diffVectors = diffArray
-    }
-    
-    @objc public func next() {
-        progress += 1/totalSteps
-        if progress < 1.0 {
-            apply(current.toInterpolatable())
-        }
-        else {
-            progress = 1.0
-            stop()
-            apply(current.toInterpolatable())
-        }
-    }
-    
-    public func run() {
-        displayLink?.invalidate()
-        displayLink = CADisplayLink(target: self, selector: #selector(next))
-        displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
-    }
-    
-    public func stop() {
-        completed = true
-        displayLink?.invalidate()
+        return diffArray
     }
 
-    
 }
