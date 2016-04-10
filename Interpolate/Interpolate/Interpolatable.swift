@@ -57,10 +57,15 @@ extension CGFloat: Interpolatable {
     }
 }
 
-public struct IPValue {
+public class IPValue {
     
-    let vectors: [CGFloat]
+    var vectors: [CGFloat]
     let type: InterpolatableType
+    
+    init (vectors: [CGFloat], type: InterpolatableType) {
+        self.vectors = vectors
+        self.type = type
+    }
     
     func toInterpolatable() -> Interpolatable {
         switch type {
