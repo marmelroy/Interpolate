@@ -10,10 +10,10 @@ import Foundation
 
 public protocol Interpolation {
     
-    var current: NSValue { get set }
+    var current: IPValue { get set }
     var progress: CGFloat { get set }
     var completed: Bool { get set }
-    var apply: (NSValue -> ()) { get set }
+    var apply: (Interpolatable -> ()) { get set }
 
     func run()
     func next()
@@ -23,27 +23,27 @@ public protocol Interpolation {
 
 public class LinearInterpolation: Interpolation {
     
-    public var current: NSValue
+    public var current: IPValue
     public var completed = false
     public var progress: CGFloat = 0.0
-    public var apply: (NSValue -> ())
+    public var apply: (Interpolatable -> ())
 
-    public let from: NSValue
-    public let to: NSValue
+    private let from: IPValue
+    private let to: IPValue
     public let duration: CGFloat
 
     private var displayLink: CADisplayLink?
     
-    public init(from: NSValue, to: NSValue, duration: CGFloat, apply: (NSValue -> ())) {
-        self.current = from
-        self.from = from
-        self.to = to
+    public init(from: Interpolatable, to: Interpolatable, duration: CGFloat, apply: (Interpolatable -> ())) {
+        self.current = from.vectorize()
+        self.from = from.vectorize()
+        self.to = to.vectorize()
         self.duration = duration
         self.apply = apply
     }
     
     @objc public func next() {
-    
+        apply(current.toInterpolatable())
     }
     
     public func run() {

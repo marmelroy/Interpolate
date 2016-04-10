@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let moveIntrepolation = LinearInterpolation(from: 0.0, to: 2.0, duration: 0.3) { (value) in
+        let moveIntrepolation = LinearInterpolation(from: CGPointMake(0, 0), to: CGPointMake(10, 200), duration: 0.3) { (value) in
                 print(value)
         }
         moveIntrepolation.run()
