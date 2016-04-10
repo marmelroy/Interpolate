@@ -15,11 +15,13 @@ public class LinearInterpolation: Interpolation {
     public var completed = false
     public var progress: CGFloat = 0.0 {
         didSet {
+            progress = max(0, min(progress, 1.0))
             let progressDiff = progress - oldValue
             let vectorCount = from.vectors.count
             for index in 0..<vectorCount {
                 current.vectors[index] += diffVectors[index]*progressDiff
             }
+            apply(current.toInterpolatable())
         }
     }
     public var apply: (Interpolatable -> ())
@@ -27,10 +29,7 @@ public class LinearInterpolation: Interpolation {
     private let from: IPValue
     private let to: IPValue
     private let duration: CGFloat
-    private var chainedInterpolations = [Interpolation]()
-
     
-    private var totalSteps: CGFloat = 0.0
     
     public var displayLink: CADisplayLink?
     
@@ -43,30 +42,16 @@ public class LinearInterpolation: Interpolation {
         self.duration = duration
         self.apply = apply
         
-        // Total steps
-        self.totalSteps = self.duration*60
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
     
     @objc public func next() {
-        progress += 1/totalSteps
-        if progress < 1.0 {
-            apply(current.toInterpolatable())
-        }
-        else {
+        progress += 1/(self.duration*60)
+        if progress >= 1.0 {
             progress = 1.0
-            apply(current.toInterpolatable())
             completed = true
             stop()
-            if chainedInterpolations.count > 0 {
-                let nextInterpolation = chainedInterpolations.first
-                nextInterpolation?.run()
-            }
         }
-    }
-    
-    public func chain(interpolation: Interpolation) {
-        chainedInterpolations.append(interpolation)
     }
     
     public func run() {
