@@ -8,50 +8,53 @@
 
 import Foundation
 
-public class Interpolate {
-    
-    let interpolations: [Interpolation]
-    
-    let actions: ([Interpolation] -> ())
-
-    init(interpolations: [Interpolation], actions: ([Interpolation] -> ())) {
-        self.interpolations = interpolations
-        self.actions = actions
-    }
-    
-    func execute() {
-        actions(self.interpolations)
-    }
-    
-}
-
 public protocol Interpolation {
     
-    var identifier: String { get set }
-    
     var current: NSValue { get set }
+    var progress: CGFloat { get set }
+    var completed: Bool { get set }
+    var apply: (NSValue -> ()) { get set }
+
+    func run()
+    func next()
+    func stop()
 }
 
 
 public class LinearInterpolation: Interpolation {
     
-    public var identifier: String
     public var current: NSValue
+    public var completed = false
+    public var progress: CGFloat = 0.0
+    public var apply: (NSValue -> ())
 
     public let from: NSValue
     public let to: NSValue
     public let duration: CGFloat
+
+    private var displayLink: CADisplayLink?
     
-    init(identifier: String, from: NSValue, to: NSValue, duration: CGFloat) {
+    public init(from: NSValue, to: NSValue, duration: CGFloat, apply: (NSValue -> ())) {
         self.current = from
         self.from = from
         self.to = to
         self.duration = duration
-        self.identifier = identifier
+        self.apply = apply
     }
     
-    public func begin() {
+    @objc public func next() {
     
     }
+    
+    public func run() {
+        displayLink?.invalidate()
+        displayLink = CADisplayLink(target: self, selector: #selector(next))
+        displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+    }
+    
+    public func stop() {
+        displayLink?.invalidate()
+    }
+
     
 }

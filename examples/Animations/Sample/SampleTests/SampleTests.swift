@@ -1,15 +1,15 @@
 //
-//  InterpolateTests.swift
-//  InterpolateTests
+//  SampleTests.swift
+//  SampleTests
 //
 //  Created by Roy Marmelstein on 10/04/2016.
 //  Copyright © 2016 Roy Marmelstein. All rights reserved.
 //
 
 import XCTest
-@testable import Interpolate
+@testable import Sample
 
-class InterpolateTests: XCTestCase {
+class SampleTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -27,14 +27,9 @@ class InterpolateTests: XCTestCase {
     }
     
     func testPerformanceExample() {
-        let linearInterpolation = LinearInterpolation(identifier: "Move", from: 1.0, to: 3.0, duration: 0.3)
-        let simple = Interpolate(interpolations: [linearInterpolation]) { (interpolations) in
-            for interpolation in interpolations {
-                print("interpolation \(interpolation.identifier)")
-            }
-        }
+        // This is an example of a performance test case.
         self.measureBlock {
-            simple.execute()
+            // Put the code you want to measure the time of here.
         }
     }
     
