@@ -13,10 +13,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let moveIntrepolation = LinearInterpolation(from: CGPointMake(0, 0), to: CGPointMake(10, 200), duration: 0.3) { (value) in
-                print(value)
+        let moveObject = LinearInterpolation(from: UIColor.whiteColor(), to: UIColor.blackColor(), duration: 2.0) { (result) in
+            self.view.backgroundColor = result as? UIColor
         }
-        moveIntrepolation.run()
+        moveObject.run()
     }
 
     override func didReceiveMemoryWarning() {

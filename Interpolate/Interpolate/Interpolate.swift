@@ -14,6 +14,7 @@ public protocol Interpolation {
     var progress: CGFloat { get set }
     var completed: Bool { get set }
     var apply: (Interpolatable -> ()) { get set }
+    var diffVectors: [CGFloat] { get set }
 
     func run()
     func next()
@@ -24,13 +25,14 @@ public protocol Interpolation {
 public class LinearInterpolation: Interpolation {
     
     public var current: IPValue
+    public var diffVectors: [CGFloat]
     public var completed = false
     public var progress: CGFloat = 0.0 {
         didSet {
             let progressDiff = progress - oldValue
             let vectorCount = from.vectors.count
             for index in 0..<vectorCount {
-                current.vectors[index] += diff[index]*progressDiff
+                current.vectors[index] += diffVectors[index]*progressDiff
             }
         }
     }
@@ -39,7 +41,6 @@ public class LinearInterpolation: Interpolation {
     private let from: IPValue
     private let to: IPValue
     private let duration: CGFloat
-    private let diff: [CGFloat]
 
     private var totalSteps: CGFloat = 0.0
 
@@ -64,7 +65,7 @@ public class LinearInterpolation: Interpolation {
             let vectorDiff = toVector.vectors[index] - fromVector.vectors[index]
             diffArray.append(vectorDiff)
         }
-        self.diff = diffArray
+        self.diffVectors = diffArray
     }
     
     @objc public func next() {

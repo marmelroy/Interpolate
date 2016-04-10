@@ -19,6 +19,9 @@ public enum InterpolatableType {
     case CGFloat
     case Int
     case NSNumber
+    case ColorRGB
+    case ColorMonochrome
+    case ColorHSB
 }
 
 extension CGPoint: Interpolatable {
@@ -57,6 +60,22 @@ extension CGFloat: Interpolatable {
     }
 }
 
+extension UIColor: Interpolatable {
+    public func vectorize() -> IPValue {
+        var red: CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0, white: CGFloat = 0.0, hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
+        let rgbConversion = self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        if rgbConversion {
+            return IPValue(vectors: [red, green, blue, alpha], type: .ColorRGB)
+        }
+        let monochromeConversion = self.getWhite(&white, alpha: &alpha)
+        if monochromeConversion {
+            return IPValue(vectors: [white, alpha], type: .ColorMonochrome)
+        }
+        self.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        return IPValue(vectors: [hue, saturation, brightness, alpha], type: .ColorHSB)
+    }
+}
+
 public class IPValue {
     
     var vectors: [CGFloat]
@@ -81,6 +100,12 @@ public class IPValue {
                 return vectors[0]
             case .NSNumber:
                 return vectors[0]
+            case .ColorRGB:
+                return UIColor(red: vectors[0], green: vectors[1], blue: vectors[2], alpha: vectors[3])
+            case .ColorMonochrome:
+                return UIColor(white: vectors[0], alpha: vectors[1])
+            case .ColorHSB:
+                return UIColor(hue: vectors[0], saturation: vectors[1], brightness: vectors[2], alpha: vectors[3])
         }
     }
     
