@@ -11,7 +11,7 @@
 		3448A0ED1CBA2A1B00E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */; };
 		3448A0F21CBA2A1B00E818C2 /* InterpolateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */; };
 		3448A0FD1CBA2A4400E818C2 /* Interpolate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */; };
-		347179CB1CBAEE410072B7AA /* LinearInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347179CA1CBAEE410072B7AA /* LinearInterpolation.swift */; };
+		347179CB1CBAEE410072B7AA /* BasicInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */; };
 		34CF09A11CBAC7E800D1DD32 /* Interpolatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF09A01CBAC7E800D1DD32 /* Interpolatable.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +33,7 @@
 		3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolateTests.swift; sourceTree = "<group>"; };
 		3448A0F31CBA2A1B00E818C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolate.swift; sourceTree = "<group>"; };
-		347179CA1CBAEE410072B7AA /* LinearInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearInterpolation.swift; sourceTree = "<group>"; };
+		347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInterpolation.swift; sourceTree = "<group>"; };
 		34CF09A01CBAC7E800D1DD32 /* Interpolatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,7 @@
 				3448A0E51CBA2A1B00E818C2 /* Interpolate.h */,
 				3448A0E71CBA2A1B00E818C2 /* Info.plist */,
 				3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */,
-				347179CA1CBAEE410072B7AA /* LinearInterpolation.swift */,
+				347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */,
 				34CF09A01CBAC7E800D1DD32 /* Interpolatable.swift */,
 			);
 			path = Interpolate;
@@ -205,7 +205,7 @@
 			files = (
 				3448A0FD1CBA2A4400E818C2 /* Interpolate.swift in Sources */,
 				34CF09A11CBAC7E800D1DD32 /* Interpolatable.swift in Sources */,
-				347179CB1CBAEE410072B7AA /* LinearInterpolation.swift in Sources */,
+				347179CB1CBAEE410072B7AA /* BasicInterpolation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
