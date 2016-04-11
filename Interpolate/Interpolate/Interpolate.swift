@@ -15,7 +15,6 @@ public protocol Interpolation {
     var apply: (Interpolatable -> ()) { get set }
     var diffVectors: [CGFloat] { get set }
 
-    func run()
     func stop()
     func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat]
 }

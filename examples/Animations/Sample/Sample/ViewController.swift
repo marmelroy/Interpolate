@@ -13,10 +13,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let moveObject = BasicInterpolation(from: UIColor.whiteColor(), to: UIColor.redColor(), duration: 2.0) { (result) in
+        let colorChange = BasicInterpolation(from: UIColor.whiteColor(), to: UIColor.redColor()) { (result) in
             self.view.backgroundColor = result as? UIColor
         }
-        moveObject.run()
+        colorChange.animate(2.0)
     }
 
     override func didReceiveMemoryWarning() {

@@ -19,10 +19,13 @@ public class BasicInterpolation: Interpolation {
     
     public var current: IPValue
     public var diffVectors = [CGFloat]()
+    private var internalProgress: CGFloat = 0.0
     public var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(progress, 1.0))
-            let easingProgress = self.easingAdjustedProgress(progress, easing: .Linear) - self.easingAdjustedProgress(oldValue, easing: .Linear)
+            let nextInternalProgress = self.easingAdjustedProgress(progress, easing: .Linear)
+            let easingProgress = nextInternalProgress - internalProgress
+            internalProgress = nextInternalProgress
             let vectorCount = from.vectors.count
             for index in 0..<vectorCount {
                 current.vectors[index] += diffVectors[index]*easingProgress
@@ -35,17 +38,15 @@ public class BasicInterpolation: Interpolation {
     
     private let from: IPValue
     private let to: IPValue
-    private let duration: CGFloat
-    
+    private var duration: CGFloat = 0.3
     public var displayLink: CADisplayLink?
     
-    public init(from: Interpolatable, to: Interpolatable, duration: CGFloat, apply: (Interpolatable -> ())) {
+    public init(from: Interpolatable, to: Interpolatable, apply: (Interpolatable -> ())) {
         let fromVector = from.vectorize()
         let toVector = to.vectorize()
         self.current = fromVector
         self.from = fromVector
         self.to = toVector
-        self.duration = duration
         self.apply = apply
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
@@ -67,7 +68,7 @@ public class BasicInterpolation: Interpolation {
                 }
         }
     }
-    
+        
     @objc public func next() {
         progress += 1/(self.duration*60)
         if progress >= 1.0 {
@@ -76,7 +77,8 @@ public class BasicInterpolation: Interpolation {
         }
     }
     
-    public func run() {
+    public func animate(duration: CGFloat) {
+        self.duration = duration
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
         displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
