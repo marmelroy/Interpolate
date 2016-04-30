@@ -13,23 +13,42 @@ public enum BasicInterpolationEasing {
     case EaseIn
     case EaseOut
     case EaseInOut
+    
+    func apply(progress: CGFloat) -> CGFloat {
+        switch self {
+        case .Linear:
+            return progress
+        case .EaseIn:
+            return progress*progress*progress
+        case .EaseOut:
+            return (progress - 1)*(progress - 1)*(progress - 1) + 1.0
+        case .EaseInOut:
+            if progress < 0.5 {
+                return 4.0*progress*progress*progress
+            } else {
+                let adjustment = (2*progress - 2)
+                return 0.5 * adjustment * adjustment * adjustment + 1.0
+            }
+        }
+    }
 }
 
 public class BasicInterpolation: Interpolation {
     
     public var current: IPValue
     public var diffVectors = [CGFloat]()
-    private var internalProgress: CGFloat = 0.0
+    public var easing = BasicInterpolationEasing.Linear
     public var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(progress, 1.0))
-            let nextInternalProgress = self.easingAdjustedProgress(progress, easing: .Linear)
+            let nextInternalProgress = self.easingAdjustedProgress(progress)
             let easingProgress = nextInternalProgress - internalProgress
             internalProgress = nextInternalProgress
             let vectorCount = from.vectors.count
             for index in 0..<vectorCount {
                 current.vectors[index] += diffVectors[index]*easingProgress
             }
+            
             apply(current.toInterpolatable())
         }
     }
@@ -38,7 +57,9 @@ public class BasicInterpolation: Interpolation {
     
     private let from: IPValue
     private let to: IPValue
+    private var internalProgress: CGFloat = 0.0
     private var duration: CGFloat = 0.3
+    
     public var displayLink: CADisplayLink?
     
     public init(from: Interpolatable, to: Interpolatable, apply: (Interpolatable -> ())) {
@@ -51,22 +72,8 @@ public class BasicInterpolation: Interpolation {
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
     
-    func easingAdjustedProgress(progress: CGFloat, easing: BasicInterpolationEasing) -> CGFloat {
-        switch easing {
-            case .Linear:
-                return progress
-            case .EaseIn:
-                return progress*progress*progress
-            case .EaseOut:
-                return (progress - 1)*(progress - 1)*(progress - 1) + 1.0
-            case .EaseInOut:
-                if progress < 0.5 {
-                    return 4.0*progress*progress*progress
-                } else {
-                    let adjustment = (2*progress - 2)
-                    return 0.5 * adjustment * adjustment * adjustment + 1.0
-                }
-        }
+    func easingAdjustedProgress(progress: CGFloat) -> CGFloat {
+        return easing.apply(progress)
     }
         
     @objc public func next() {
