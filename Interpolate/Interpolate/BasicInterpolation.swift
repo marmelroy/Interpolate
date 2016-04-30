@@ -8,7 +8,9 @@
 
 import Foundation
 
+
 public enum BasicInterpolation: InterpolationFunction {
+    
     case Linear
     case EaseIn
     case EaseOut

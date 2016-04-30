@@ -8,10 +8,12 @@
 
 import Foundation
 
+/// Interpolate class. Responsible for conducting interpolations.
 public class Interpolate {
     
-    public var current: IPValue
-    public var diffVectors = [CGFloat]()
+    //MARK: Properties and variables
+    
+    /// Progress variable. Takes a value between 0.0 and 1,0. CGFloat. Setting it triggers the apply closure.
     public var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(progress, 1.0))
@@ -22,21 +24,32 @@ public class Interpolate {
             for index in 0..<vectorCount {
                 current.vectors[index] += diffVectors[index]*easingProgress
             }
-            
             apply(current.toInterpolatable())
         }
     }
     
-    public var apply: (Interpolatable -> ())
-    
+    private var current: IPValue
     private let from: IPValue
     private let to: IPValue
+    private var duration: CGFloat = 0.2
+    private var diffVectors = [CGFloat]()
     private let function: InterpolationFunction
     private var internalProgress: CGFloat = 0.0
-    private var duration: CGFloat = 0.3
+    private var apply: (Interpolatable -> ())
+    private var displayLink: CADisplayLink?
     
-    public var displayLink: CADisplayLink?
+    //MARK: Lifecycle
     
+    /**
+     Initialises an Interpolate object.
+     
+     - parameter from:     Source interpolatable object.
+     - parameter to:       Target interpolatable object.
+     - parameter apply:    Apply closure.
+     - parameter function: Interpolation function (Basic / Spring / Custom).
+     
+     - returns: an Interpolate object.
+     */
     public init(from: Interpolatable, to: Interpolatable, apply: (Interpolatable -> ()), function: InterpolationFunction = BasicInterpolation.Linear) {
         let fromVector = from.vectorize()
         let toVector = to.vectorize()
@@ -48,18 +61,13 @@ public class Interpolate {
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
     
-    func adjustedProgress(progressValue: CGFloat) -> CGFloat {
-        return function.apply(progressValue)
-    }
+    //MARK: Animation
     
-    @objc public func next() {
-        progress += 1/(self.duration*60)
-        if progress >= 1.0 {
-            progress = 1.0
-            stop()
-        }
-    }
-    
+    /**
+     Animates between from and to value with a given duration.
+     
+     - parameter duration: Duration in seconds. CGFloat.
+     */
     public func animate(duration: CGFloat) {
         self.duration = duration
         displayLink?.invalidate()
@@ -67,11 +75,24 @@ public class Interpolate {
         displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
+    /**
+     Stops animation.
+     */
     public func stop() {
         displayLink?.invalidate()
     }
+
+    //MARK: Internal
     
-    public func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat] {
+    /**
+     Calculates diff between two IPValues.
+     
+     - parameter from: Source IPValue.
+     - parameter to:   Target IPValue.
+     
+     - returns: Array of diffs. CGFloat
+     */
+    private func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat] {
         var diffArray = [CGFloat]()
         let vectorCount = from.vectors.count
         for index in 0..<vectorCount {
@@ -80,9 +101,41 @@ public class Interpolate {
         }
         return diffArray
     }
+
+    /**
+     Adjusted progress using interpolation function.
+     
+     - parameter progressValue: Actual progress value. CGFloat.
+     
+     - returns: Adjusted progress value. CGFloat.
+     */
+    private func adjustedProgress(progressValue: CGFloat) -> CGFloat {
+        return function.apply(progressValue)
+    }
+    
+    /**
+     Next function used by animation(). Increments progress based on the duration.
+     */
+    @objc private func next() {
+        progress += 1/(self.duration*60)
+        if progress >= 1.0 {
+            progress = 1.0
+            stop()
+        }
+    }
     
 }
 
+/**
+ *  Interpolation function. Must implement an application function.
+ */
 public protocol InterpolationFunction {
+    /**
+     Applies interpolation function to a given progress value.
+     
+     - parameter progress: Actual progress value. CGFloat
+     
+     - returns: Adjusted progress value. CGFloat.
+     */
     func apply(progress: CGFloat) -> CGFloat
 }
