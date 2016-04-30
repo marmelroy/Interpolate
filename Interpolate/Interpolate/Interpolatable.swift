@@ -15,6 +15,7 @@ public protocol Interpolatable {
 public enum InterpolatableType {
     case CGPoint
     case CGRect
+    case CGSize
     case Double
     case CGFloat
     case Int
@@ -35,6 +36,13 @@ extension CGRect: Interpolatable {
         return IPValue(vectors: [self.origin.x, self.origin.y, self.size.width, self.size.height], type: .CGRect)
     }
 }
+
+extension CGSize: Interpolatable {
+    public func vectorize() -> IPValue {
+        return IPValue(vectors: [self.width, self.height], type: .CGSize)
+    }
+}
+
 
 extension NSNumber: Interpolatable {
     public func vectorize() -> IPValue {
@@ -92,6 +100,8 @@ public class IPValue {
                 return CGPointMake(vectors[0], vectors[1])
             case .CGRect:
                 return CGRectMake(vectors[0], vectors[1], vectors[2], vectors[3])
+            case .CGSize:
+                return CGSizeMake(vectors[0], vectors[1])
             case .Double:
                 return vectors[0]
             case .CGFloat:
