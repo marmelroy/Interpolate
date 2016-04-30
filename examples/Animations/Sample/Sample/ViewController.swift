@@ -13,10 +13,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let colorChange = BasicInterpolation(from: UIColor.whiteColor(), to: UIColor.redColor()) { (result) in
-            self.view.backgroundColor = result as? UIColor
-        }
-        colorChange.animate(2.0)
+        let squareView = UIView()
+        squareView.backgroundColor = UIColor.greenColor()
+        self.view.addSubview(squareView)
+        squareView.frame.size = CGSizeMake(100, 100)
+        squareView.center = self.view.center
+        let positionChange = Interpolate(from: self.view.center, to: CGPointMake(50, 50), apply: { (result) in
+            if let center = result as? CGPoint {
+                squareView.center = center
+            }
+        }, function: SpringInterpolation(damping: 10.0, velocity: 0.0, mass: 1.0, stiffness: 100.0))
+        positionChange.animate(1.0)
+
     }
 
     override func didReceiveMemoryWarning() {

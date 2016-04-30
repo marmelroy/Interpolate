@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3440FD321CD4B83000AC4603 /* SpringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */; };
 		3448A0E61CBA2A1B00E818C2 /* Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3448A0E51CBA2A1B00E818C2 /* Interpolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3448A0ED1CBA2A1B00E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */; };
 		3448A0F21CBA2A1B00E818C2 /* InterpolateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringInterpolation.swift; sourceTree = "<group>"; };
 		3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Interpolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3448A0E51CBA2A1B00E818C2 /* Interpolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpolate.h; sourceTree = "<group>"; };
 		3448A0E71CBA2A1B00E818C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				3448A0E71CBA2A1B00E818C2 /* Info.plist */,
 				3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */,
 				347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */,
+				3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */,
 				34CF09A01CBAC7E800D1DD32 /* Interpolatable.swift */,
 			);
 			path = Interpolate;
@@ -206,6 +209,7 @@
 				3448A0FD1CBA2A4400E818C2 /* Interpolate.swift in Sources */,
 				34CF09A11CBAC7E800D1DD32 /* Interpolatable.swift in Sources */,
 				347179CB1CBAEE410072B7AA /* BasicInterpolation.swift in Sources */,
+				3440FD321CD4B83000AC4603 /* SpringInterpolation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
