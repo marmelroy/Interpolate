@@ -27,7 +27,7 @@ class ViewController: UIViewController {
             }
             animationView.center = CGPointMake(animationViewCenter.x, animationViewCenter.y + translatedPoint.y)
             let progress = animationView.center.y / self.view.frame.size.height
-            colorChange?.progress = progress
+            colorChange?.animate(0.2, targetProgress: progress)
             radiusChange?.progress = progress
             var sizeProgress = animationView.center.y / self.view.center.y
             if sizeProgress > 1 {

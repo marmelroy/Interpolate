@@ -20,16 +20,35 @@
 //  Copyright © 2016 Roy Marmelstein. All rights reserved.
 //
 
-
+/// Spring interpolation
 public class SpringInterpolation: InterpolationFunction {
     
+    /// Damping
     public var damping: CGFloat = 10.0
-    public var velocity: CGFloat = 0.0
+    /// Mass
     public var mass: CGFloat = 1.0
+    /// Stiffness
     public var stiffness: CGFloat = 100.0
+    /// Velocity
+    public var velocity: CGFloat = 0.0
     
+    /**
+     Initialise Spring interpolation
+     
+     - returns: a SpringInterpolation object
+     */
     public init() {}
     
+    /**
+     Initialise Spring interpolation with options.
+     
+     - parameter damping:   Damping.
+     - parameter velocity:  Velocity.
+     - parameter mass:      Mass.
+     - parameter stiffness: Stiffness.
+     
+     - returns: a SpringInterpolation object
+     */
     public init(damping: CGFloat, velocity: CGFloat, mass: CGFloat, stiffness: CGFloat) {
         self.damping = damping
         self.velocity = velocity
@@ -37,6 +56,13 @@ public class SpringInterpolation: InterpolationFunction {
         self.stiffness = stiffness
     }
     
+    /**
+     Apply interpolation function
+     
+     - parameter progress: Input progress value
+     
+     - returns: Adjusted progress value with interpolation function.
+     */
     public func apply(progress: CGFloat) -> CGFloat {
     
         if damping <= 0.0 || stiffness <= 0.0 || mass <= 0.0 {

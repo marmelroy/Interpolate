@@ -8,7 +8,14 @@
 
 import Foundation
 
-
+/**
+ Basic interpolation function.
+ 
+ - Linear:    Linear interpolation.
+ - EaseIn:    Ease in interpolation.
+ - EaseOut:   Ease out interpolation.
+ - EaseInOut: Ease in out interpolation.
+ */
 public enum BasicInterpolation: InterpolationFunction {
     
     case Linear
@@ -16,6 +23,13 @@ public enum BasicInterpolation: InterpolationFunction {
     case EaseOut
     case EaseInOut
     
+    /**
+     Apply interpolation function
+     
+     - parameter progress: Input progress value
+     
+     - returns: Adjusted progress value with interpolation function. 
+     */
     public func apply(progress: CGFloat) -> CGFloat {
         switch self {
         case .Linear:

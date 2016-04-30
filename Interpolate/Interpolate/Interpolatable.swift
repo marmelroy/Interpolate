@@ -8,10 +8,27 @@
 
 import Foundation
 
+/**
+ *  Interpolatable protocol. Requires implementation of a vectorize function.
+ */
 public protocol Interpolatable {
     func vectorize() -> IPValue
 }
 
+/**
+ Supported interpolatable types.
+ 
+ - CGPoint:         CGPoint type.
+ - CGRect:          CGRect type.
+ - CGSize:          CGSize type.
+ - Double:          Double type.
+ - CGFloat:         CGFloat type.
+ - Int:             Int type.
+ - NSNumber:        NSNumber type.
+ - ColorRGB:        ColorRGB type.
+ - ColorMonochrome: ColorMonochrome type.
+ - ColorHSB:        ColorHSB type.
+ */
 public enum InterpolatableType {
     case CGPoint
     case CGRect
@@ -25,50 +42,91 @@ public enum InterpolatableType {
     case ColorHSB
 }
 
+// MARK: Extensions
+
 extension CGPoint: Interpolatable {
+    /**
+     Vectorize CGPoint.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [self.x, self.y], type: .CGPoint)
     }
 }
 
 extension CGRect: Interpolatable {
+    /**
+     Vectorize CGRect.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [self.origin.x, self.origin.y, self.size.width, self.size.height], type: .CGRect)
     }
 }
 
 extension CGSize: Interpolatable {
+    /**
+     Vectorize CGSize.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [self.width, self.height], type: .CGSize)
     }
 }
 
-
 extension NSNumber: Interpolatable {
+    /**
+     Vectorize NSNumber.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [CGFloat(self)], type: .NSNumber)
     }
 }
 
 extension Int: Interpolatable {
+    /**
+     Vectorize Int.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [CGFloat(self)], type: .Int)
     }
 }
 
 extension Double: Interpolatable {
+    /**
+     Vectorize Double.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [CGFloat(self)], type: .Double)
     }
 }
 
 extension CGFloat: Interpolatable {
+    /**
+     Vectorize CGFloat.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         return IPValue(vectors: [self], type: .CGFloat)
     }
 }
 
 extension UIColor: Interpolatable {
+    /**
+     Vectorize UIColor.
+     
+     - returns: IPValue
+     */
     public func vectorize() -> IPValue {
         var red: CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0, white: CGFloat = 0.0, hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
         let rgbConversion = self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
