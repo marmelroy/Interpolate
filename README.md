@@ -1,2 +1,92 @@
-# Interpolate
-Low level animations in Swift
+![Interpolate - Swift interpolation for gesture-driven animations](https://cloud.githubusercontent.com/assets/889949/14937965/8b70c90a-0f16-11e6-972a-0ffa39df3e3d.png)
+
+[![Build Status](https://travis-ci.org/marmelroy/PeekPop.svg?branch=master)](https://travis-ci.org/marmelroy/PeekPop) [![Version](http://img.shields.io/cocoapods/v/PeekPop.svg)](http://cocoapods.org/?q=PeekPop)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+# PeekPop
+Peek and Pop is a great new iOS feature introduced with iPhone 6S and 6S+ that allows you to easily preview content using 3D touch.
+
+Sadly, almost 80% of iOS users are on older devices.
+
+PeekPop is a Swift framework that brings backwards-compatibility to Peek and Pop.  
+
+<p align="center"><img src="http://i.giphy.com/3o7ablu0adICfQ3OXC.gif" width="242" height="425"/></p>
+
+## Features
+
+
+              |  Features
+--------------------------|------------------------------------------------------------
+:star2: | Uses Apple's beautiful peek and pop interaction for devices with 3D touch.
+:point_up_2: | Custom Pressure-sensitive tap recognition for older devices.
+:heartpulse: | Faithful recreation of the peek and pop animation on older devices.
+:iphone: | Almost identical API to Apple's.
+:eight: | Runs on all iOS8+ devices.
+
+Missing features:
+- Support for peek and pop preview actions in devices that don't have 3D touch.
+
+## Usage
+
+Import PeekPop at the top of the Swift file.
+
+```swift
+import PeekPop
+```
+
+Create a PeekPop object, register your view controller for handling the peek and specify the source view. You will also need to declare that your view controller will conform to the PeekPopPreviewingDelegate protocol.
+
+```swift
+class MyViewController: UIViewController, PeekPopPreviewingDelegate {
+
+    var peekPop: PeekPop?
+
+    override func viewDidLoad() {
+        peekPop = PeekPop(viewController: self)
+        peekPop?.registerForPreviewingWithDelegate(self, sourceView: collectionView)
+    }
+```
+
+PeekPopPreviewingDelegate requires implementing two simple functions. You will need to tell it what view controller to present for peeking purposes with:
+```swift
+    func previewingContext(previewingContext: PreviewingContext, viewControllerForLocation location: CGPoint) -> UIViewController?
+```
+
+...and you will need to tell it how to commit the preview view controller at the end of the transition with:
+```swift
+    func previewingContext(previewingContext: PreviewingContext, commitViewController viewControllerToCommit: UIViewController)
+```
+
+## How does it work?
+
+In devices without 3D touch, PeekPop recognizes pressure on the screen by monitoring significant changes in UITouch's majorRadius value.
+
+It assumes that by pressing harder on your iPhone, more of the surface area of your finger is in contact with the screen. This is true in the majority of cases.
+
+### Setting up with [CocoaPods](http://cocoapods.org/?q=PeekPop)
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+pod 'PeekPop', '~> 0.1'
+```
+
+### Setting up with Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that automates the process of adding frameworks to your Cocoa application.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate PeekPop into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "marmelroy/PeekPop"
+```
+
+## Inspiration
+- [http://krakendev.io/peek-pop/](http://krakendev.io/peek-pop/)
+- [http://flexmonkey.blogspot.fr/2015/10/the-plum-o-meter-weighing-plums-using.html](http://flexmonkey.blogspot.fr/2015/10/the-plum-o-meter-weighing-plums-using.html)
+- [https://github.com/b3ll/Pseudo3DTouch](https://github.com/b3ll/Pseudo3DTouch)
