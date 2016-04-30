@@ -35,6 +35,7 @@ public class Interpolate {
     private var diffVectors = [CGFloat]()
     private let function: InterpolationFunction
     private var internalProgress: CGFloat = 0.0
+    private var targetProgress: CGFloat = 0.0
     private var apply: (Interpolatable -> ())
     private var displayLink: CADisplayLink?
     
@@ -64,11 +65,13 @@ public class Interpolate {
     //MARK: Animation
     
     /**
-     Animates between from and to value with a given duration.
+     Animates to a targetProgress with a given duration.
      
-     - parameter duration: Duration in seconds. CGFloat.
+     - parameter duration:       Duration in seconds. CGFloat.
+     - parameter targetProgress: Target progress value. Optional. If left empty assumes 1.0.
      */
-    public func animate(duration: CGFloat) {
+    public func animate(duration: CGFloat, targetProgress: CGFloat = 1.0) {
+        self.targetProgress = targetProgress
         self.duration = duration
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
@@ -117,9 +120,10 @@ public class Interpolate {
      Next function used by animation(). Increments progress based on the duration.
      */
     @objc private func next() {
-        progress += 1/(self.duration*60)
-        if progress >= 1.0 {
-            progress = 1.0
+        let direction: CGFloat = (targetProgress > progress) ? 1.0 : -1.0
+        progress += 1/(self.duration*60)*direction
+        if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
+            progress = targetProgress
             stop()
         }
     }
