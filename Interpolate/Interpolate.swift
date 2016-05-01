@@ -24,7 +24,7 @@ public class Interpolate {
             for index in 0..<vectorCount {
                 current.vectors[index] += diffVectors[index]*easingProgress
             }
-            apply(current.toInterpolatable())
+            apply?(current.toInterpolatable())
         }
     }
     
@@ -36,7 +36,7 @@ public class Interpolate {
     private let function: InterpolationFunction
     private var internalProgress: CGFloat = 0.0
     private var targetProgress: CGFloat = 0.0
-    private var apply: (Interpolatable -> ())
+    private var apply: (Interpolatable -> ())?
     private var displayLink: CADisplayLink?
     
     //MARK: Lifecycle
@@ -82,6 +82,7 @@ public class Interpolate {
      Stops animation.
      */
     public func stop() {
+        apply = nil
         displayLink?.invalidate()
     }
 
