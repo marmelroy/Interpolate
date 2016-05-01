@@ -79,7 +79,7 @@ public class Interpolate {
     }
     
     /**
-     Stops animation.
+     Invalidates the object.
      */
     public func stop() {
         apply = nil

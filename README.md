@@ -10,7 +10,8 @@ Interpolate is a Swift interpolation framework for creating interactive gesture-
 
 ## Usage
 
-The main idea at the centre of Interpolate is - all animation is interpolation between values over time.    
+The :key: idea  of Interpolate is -
+**all animation is the interpolation of values over time.**    
 
 To use Interpolate:
 
@@ -20,16 +21,68 @@ Import Interpolate at the top of your Swift file.
 import Interpolate
 ```
 
-To create an interpolation. Initialise an Interpolate object with a from value, a to value and an application closure. 
+Create an interpolation. Initialise an Interpolate object with a from value, a to value and an application closure.
 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(), to: UIColor.redColor(), apply: { [weak self] (result) in
-            if let color = result as? UIColor {
-                self?.view.backgroundColor = color
-            } })
+    if let color = result as? UIColor {
+      self?.view.backgroundColor = color
+    }
+})
+```
+
+Next, you will need to find a way to translate the gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
+
+Then just apply it to the Interpolate object.
+```swift
+colorChange.progress = percentage
+```
+
+To stop the interpolation
+```swift
+colorChange.stop()
 ```
 
 
+Voila!
+
+## What can I interpolate?
+
+Interpolate currently supports the interpolation of:
+- CGPoint
+- CGRect
+- CGSize
+- Double
+- CGFloat
+- Int
+- NSNumber
+- UIColor
+
+More types will be added over time.
+
+## Advanced usage
+
+Interpolate is not just for dull linear interpolations.
+
+For smoother animations, consider using any of the following functions: **Linear, EaseIn, EaseOut, EaseInOut and Spring.**
+
+```swift
+// Spring interpolation
+shadowPosition = Interpolate(from: -shadowView.frame.size.width, to: (self.view.bounds.size.width - shadowView.frame.size.width)/2, apply: { [weak self] (result) in
+    if let originX = result as? CGFloat {
+        self?.shadowView.frame.origin.x = originX
+    }
+}, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0))
+
+// Ease out interpolation
+groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), apply: { [weak self] (result) in
+    if let origin = result as? CGPoint {
+        self?.groundView.frame.origin = origin
+    }
+}, function: BasicInterpolation.EaseOut)
+```
+
+In fact, you can easily create your own interpolation functions. Just create an object that conforms to the InterpolationFunction protocol.
 
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=Interpolate)
 ```ruby
