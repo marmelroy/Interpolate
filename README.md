@@ -106,3 +106,8 @@ To integrate Interpolate into your Xcode project using Carthage, specify it in y
 ```ogdl
 github "marmelroy/Interpolate"
 ```
+
+### Inspiration
+- [https://github.com/icanzilb/EasyAnimation](https://github.com/icanzilb/EasyAnimation)
+- [https://github.com/robb/RBBAnimation](https://github.com/robb/RBBAnimation)
+- [https://github.com/facebook/pop](https://github.com/facebook/pop)
