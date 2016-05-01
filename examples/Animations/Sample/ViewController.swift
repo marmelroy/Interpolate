@@ -81,17 +81,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         })
         
-        bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, apply: { [weak self] (result) in
+        bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (result) in
             if let originX = result as? CGFloat {
                 self?.bojackShadowView.frame.origin.x = originX
             }
-        }, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0))
+        })
         
-        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), apply: { [weak self] (result) in
+        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), function: BasicInterpolation.EaseOut, apply: { [weak self] (result) in
             if let origin = result as? CGPoint {
                 self?.groundView.frame.origin = origin
             }
-        }, function: BasicInterpolation.EaseOut)
+        })
         
     }
     

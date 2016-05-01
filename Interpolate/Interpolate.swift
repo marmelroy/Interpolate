@@ -51,7 +51,7 @@ public class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public init(from: Interpolatable, to: Interpolatable, apply: (Interpolatable -> ()), function: InterpolationFunction = BasicInterpolation.Linear) {
+    public init(from: Interpolatable, to: Interpolatable, function: InterpolationFunction = BasicInterpolation.Linear, apply: (Interpolatable -> ())) {
         let fromVector = from.vectorize()
         let toVector = to.vectorize()
         self.current = fromVector
