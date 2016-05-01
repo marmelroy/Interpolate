@@ -21,7 +21,7 @@ Import Interpolate at the top of your Swift file.
 import Interpolate
 ```
 
-Create an interpolation. Initialise an Interpolate object with a from value, a to value and an application closure.
+Create an Interpolate object with a from value, a to value and an apply closure.
 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(), to: UIColor.redColor(), apply: { [weak self] (result) in
@@ -42,7 +42,6 @@ To stop the interpolation
 ```swift
 colorChange.stop()
 ```
-
 
 Voila!
 
@@ -68,14 +67,14 @@ For smoother animations, consider using any of the following functions: **Linear
 
 ```swift
 // Spring interpolation
-shadowPosition = Interpolate(from: -shadowView.frame.size.width, to: (self.view.bounds.size.width - shadowView.frame.size.width)/2, apply: { [weak self] (result) in
+let shadowPosition = Interpolate(from: -shadowView.frame.size.width, to: (self.view.bounds.size.width - shadowView.frame.size.width)/2, apply: { [weak self] (result) in
     if let originX = result as? CGFloat {
         self?.shadowView.frame.origin.x = originX
     }
 }, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0))
 
 // Ease out interpolation
-groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), apply: { [weak self] (result) in
+let groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), apply: { [weak self] (result) in
     if let origin = result as? CGPoint {
         self?.groundView.frame.origin = origin
     }
