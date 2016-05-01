@@ -20,8 +20,8 @@ MODE="$1"
 if [ "$MODE" = "framework" ]; then
     echo "Building and testing Interpolate.framework."
     xcodebuild \
-        -project Format.xcodeproj \
-        -scheme Format \
+        -project Interpolate.xcodeproj \
+        -scheme Interpolate \
         -sdk "$SDK" \
         -destination "$PLATFORM" \
         build test
