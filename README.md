@@ -4,17 +4,32 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Interpolate
-Interpolate is a Swift framework for creating interactive gesture-driven animations.
+Interpolate is a Swift interpolation framework for creating interactive gesture-driven animations.
 
-The main idea at the centre of Interpolate is - all animation is interpolation between values over time.    
+<p align="center"><img src="http://i.giphy.com/l4HobBq7BD6xKKGBi.gif" width="242" height="425"/></p>
 
 ## Usage
 
-Import Interpolate at the top of the Swift file.
+The main idea at the centre of Interpolate is - all animation is interpolation between values over time.    
+
+To use Interpolate:
+
+Import Interpolate at the top of your Swift file.
 
 ```swift
 import Interpolate
 ```
+
+To create an interpolation. Initialise an Interpolate object with a from value, a to value and an application closure. 
+
+```swift
+let colorChange = Interpolate(from: UIColor.whiteColor(), to: UIColor.redColor(), apply: { [weak self] (result) in
+            if let color = result as? UIColor {
+                self?.view.backgroundColor = color
+            } })
+```
+
+
 
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=Interpolate)
 ```ruby
