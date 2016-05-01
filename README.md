@@ -58,6 +58,9 @@ Interpolate currently supports the interpolation of:
 - Int
 - NSNumber
 - UIColor
+- CGAffineTransform
+- CATransform3D
+
 
 More types will be added over time.
 
