@@ -9,66 +9,105 @@
 import UIKit
 import Interpolate
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIScrollViewDelegate {
 
-    @IBOutlet weak var animationView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
-    var colorChange: Interpolate?
-    var radiusChange: Interpolate?
-    var sizeChange: Interpolate?
+    let groundView = UIView()
+    let logoView = UIImageView()
+    let bojackView = UIImageView()
+    let bojackShadowView = UIImageView()
 
-    var animationViewCenter = CGPoint.zero
-    
-    @IBAction func didPan(sender: AnyObject) {
-        let gestureRecognizer = sender as? UIPanGestureRecognizer
-        if let translatedPoint = gestureRecognizer?.translationInView(self.view) {
-            if gestureRecognizer?.state == .Began {
-                animationViewCenter = animationView.center
-            }
-            animationView.center = CGPointMake(animationViewCenter.x, animationViewCenter.y + translatedPoint.y)
-            let progress = animationView.center.y / self.view.frame.size.height
-            colorChange?.animate(0.2, targetProgress: progress)
-            radiusChange?.progress = progress
-            var sizeProgress = animationView.center.y / self.view.center.y
-            if sizeProgress > 1 {
-                sizeProgress = 2 - sizeProgress
-            }
-            sizeChange?.progress = sizeProgress
-        }
-    }
-    
+    // Interpolations
+    var backgroundColorChange: Interpolate?
+    var groundPosition: Interpolate?
+    var bojackPosition: Interpolate?
+    var bojackShadowPosition: Interpolate?
+    var logoAlpha: Interpolate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        colorChange = Interpolate(from: UIColor.redColor(), to: UIColor.blueColor(), apply: { [weak self] (result) in
-            if let color = result as? UIColor {
-                self?.animationView.backgroundColor = color
-            }
-        })
-        radiusChange = Interpolate(from: 0.0, to: 20, apply: { [weak self] (result) in
-            if let radius = result as? CGFloat {
-                self?.animationView.layer.cornerRadius = radius
-            }
-        })
-        sizeChange = Interpolate(from: CGSizeMake(40, 40), to: CGSizeMake(300, 300), apply: { [weak self] (result) in
-            if let size = result as? CGSize {
-                self?.animationView.frame.size = size
-            }
-        }, function: BasicInterpolation.EaseIn)
+        scrollView.contentSize = CGSizeMake(self.view.bounds.size.width*2, self.view.bounds.size.height)
+        
+        // Logo view
+        let logoImage = UIImage(named: "BojackLogo")!
+        logoView.image = logoImage
+        scrollView.addSubview(logoView)
+        logoView.frame.size = logoImage.size
+        logoView.center = CGPointMake(self.view.bounds.size.width/2, 100)
+
+        // Bojack view
+        let bojackImage = UIImage(named: "Bojack")!
+        bojackView.image = bojackImage
+        scrollView.addSubview(bojackView)
+        bojackView.frame.size = bojackImage.size
+        bojackView.frame.origin = CGPointMake((self.view.bounds.size.width - bojackView.frame.size.width)/2, self.view.bounds.size.height - bojackView.frame.size.height)
+       
+        // Bojack shadow view
+        let bojackShadowImage = UIImage(named: "BojackShadow")!
+        bojackShadowView.image = bojackShadowImage
+        self.view.addSubview(bojackShadowView)
+        bojackShadowView.frame.size = bojackShadowImage.size
+        bojackShadowView.frame.origin = CGPointMake(-bojackShadowView.frame.size.width, self.view.bounds.size.height - 150 - bojackShadowView.frame.size.height)
+        
+        // Ground view
+        groundView.backgroundColor = UIColor.blackColor()
+        self.view.addSubview(groundView)
+        groundView.frame.origin = CGPointMake(0, self.view.bounds.size.height)
+        groundView.frame.size = CGSizeMake(self.view.bounds.size.width, 300)
+
+        self.view.bringSubviewToFront(pageControl)
+        
+        self.setupInterpolations()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let progress = animationView.center.y / self.view.frame.size.height
-        colorChange?.progress = progress
-        radiusChange?.progress = progress
-        sizeChange?.progress = 1.0
+    func setupInterpolations() {
+        backgroundColorChange = Interpolate(from: UIColor.whiteColor(), to: UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 76.0/255.0, alpha: 1.0), apply: { [weak self] (result) in
+            if let color = result as? UIColor {
+                self?.view.backgroundColor = color
+            }
+        })
+        
+        logoAlpha = Interpolate(from: 1.0, to: 0.0, apply: { [weak self] (result) in
+            if let alpha = result as? CGFloat {
+                self?.logoView.alpha = alpha
+            }
+        })
+        
+        bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
+            if let originX = result as? CGFloat {
+                self?.bojackView.frame.origin.x = originX
+            }
+        })
+        
+        bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, apply: { [weak self] (result) in
+            if let originX = result as? CGFloat {
+                self?.bojackShadowView.frame.origin.x = originX
+            }
+        }, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0))
+        
+        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), apply: { [weak self] (result) in
+            if let origin = result as? CGPoint {
+                self?.groundView.frame.origin = origin
+            }
+        }, function: BasicInterpolation.EaseOut)
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //MARK: UIScrollViewDelegate
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let scrollProgress = scrollView.contentOffset.x / (scrollView.contentSize.width - scrollView.frame.size.width)
+        let currentPage = scrollView.contentOffset.x / scrollView.frame.size.width
+        pageControl.currentPage = lround(Double(currentPage))
+        let groundProgress = scrollView.contentOffset.x / (scrollView.contentSize.width - 1.5*scrollView.frame.size.width)
+        backgroundColorChange?.progress = scrollProgress
+        logoAlpha?.progress = scrollProgress
+        groundPosition?.progress = groundProgress
+        bojackPosition?.progress = groundProgress
+        bojackShadowPosition?.progress = max(groundProgress - 1, 0)
     }
-
 
 }
 

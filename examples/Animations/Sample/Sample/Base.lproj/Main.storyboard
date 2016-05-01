@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,43 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faw-Vy-qYr">
-                                <rect key="frame" x="250" y="250" width="100" height="100"/>
-                                <color key="backgroundColor" red="0.0" green="0.86168323859999996" blue="0.0049295301699999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="FtC-Uk-O1x"/>
-                                    <constraint firstAttribute="height" constant="100" id="K7u-Tf-Nma"/>
-                                    <constraint firstAttribute="width" secondItem="faw-Vy-qYr" secondAttribute="height" multiplier="1:1" id="OkO-cv-Z2f"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="FtC-Uk-O1x"/>
-                                        <exclude reference="K7u-Tf-Nma"/>
-                                    </mask>
-                                </variation>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9S-s5-bMS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="aDT-9G-y5A" appends="YES" id="LY7-5c-JSD"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="VWk-Mt-2s5"/>
                                 </connections>
-                            </view>
+                            </scrollView>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="WAb-QF-MlM">
+                                <rect key="frame" x="288" y="543" width="23" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="faw-Vy-qYr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FEg-Ok-oFf"/>
-                            <constraint firstItem="faw-Vy-qYr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QW8-TT-5jm"/>
-                            <constraint firstItem="faw-Vy-qYr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wht-z9-FgG"/>
-                            <constraint firstItem="faw-Vy-qYr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="230" id="qe2-qy-y2d"/>
-                            <constraint firstItem="faw-Vy-qYr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yza-xU-1V9"/>
+                            <constraint firstItem="v9S-s5-bMS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6DU-Zr-USz"/>
+                            <constraint firstAttribute="trailing" secondItem="v9S-s5-bMS" secondAttribute="trailing" id="IcH-DN-sNr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WAb-QF-MlM" secondAttribute="bottom" constant="20" id="Tq5-Cs-jfY"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v9S-s5-bMS" secondAttribute="bottom" id="XOR-hS-bGG"/>
+                            <constraint firstItem="WAb-QF-MlM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gKs-20-8Bb"/>
+                            <constraint firstItem="v9S-s5-bMS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xYi-S7-4F5"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Wht-z9-FgG"/>
-                                <exclude reference="yza-xU-1V9"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="animationView" destination="faw-Vy-qYr" id="uJ2-DL-QxV"/>
+                        <outlet property="pageControl" destination="WAb-QF-MlM" id="rSi-hh-l2l"/>
+                        <outlet property="scrollView" destination="v9S-s5-bMS" id="rll-kv-qTc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -64,6 +49,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="445" y="323"/>
         </scene>
     </scenes>
 </document>
