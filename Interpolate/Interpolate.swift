@@ -62,6 +62,13 @@ public class Interpolate {
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
     
+    /**
+     Invalidates the apply function
+     */
+    public func invalidate() {
+        apply = nil
+    }
+
     //MARK: Animation
     
     /**
@@ -79,13 +86,12 @@ public class Interpolate {
     }
     
     /**
-     Invalidates the object.
+     Stops animation.
      */
-    public func stop() {
-        apply = nil
+    public func stopAnimation() {
         displayLink?.invalidate()
     }
-
+    
     //MARK: Internal
     
     /**
@@ -125,7 +131,7 @@ public class Interpolate {
         progress += 1/(self.duration*60)*direction
         if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
             progress = targetProgress
-            stop()
+            stopAnimation()
         }
     }
     

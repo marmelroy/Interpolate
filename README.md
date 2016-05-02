@@ -33,16 +33,39 @@ let colorChange = Interpolate(from: UIColor.whiteColor(),
 })
 ```
 
-Next, you will need to find a way to translate your chosen gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
+Next, you will need to define a way to translate your chosen gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
 
-Then just apply it to the Interpolate object.
+For a gesture recognizer or delegate that reports every change (e.g. UIPanGestureRecognizer or a ScrollViewDidScroll) you can just apply the percentage progress directly to the Interpolate object:
 ```swift
-colorChange.progress = percentage
+@IBAction func handlePan(recognizer: UIPanGestureRecognizer) {
+    let translation = recognizer.translationInView(self.view)
+    let translatedCenterY = view.center.y + translation.y
+    let progress = translatedCenterY / self.view.bounds.size.height
+    colorChange.progress = progress
+}
 ```
 
-To stop the interpolation
+For other types of gestures that only report a beginning and an end (e.g. a UILongPressGestureRecognizer), you can animate directly to a target progress value with a given duration. For example:
 ```swift
-colorChange.stop()
+@IBAction func handleLongPress(recognizer: UILongPressGestureRecognizer) {
+    switch recognizer.state {
+        case .Began:
+            backgroundColorChange!.animate(1.0, targetProgress: 1.0)
+        case .Cancelled, .Ended, .Failed:
+            backgroundColorChange!.animate(0.3, targetProgress: 0.0)
+        default: break
+    }
+}
+```
+
+To stop an animation:
+```swift
+colorChange.stopAnimation()
+```
+
+When you are done with the interpolation altogether:
+```swift
+colorChange.invalidate()
 ```
 
 Voila!
