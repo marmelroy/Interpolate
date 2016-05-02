@@ -20,5 +20,56 @@ class InterpolateTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-        
+    
+    func testLinearInterpolation() {
+        let from: CGFloat = 0.0
+        let to: CGFloat = 10.0
+        var progressTest: CGFloat = 0.0
+        let interpolation = Interpolate(from: from, to: to, apply: { (result) in
+            if let answer = result as? CGFloat {
+                XCTAssertEqual(progressTest*10, answer)
+            }
+        })
+        progressTest = 0.25
+        interpolation.progress = progressTest
+        progressTest = 0.5
+        interpolation.progress = progressTest
+        progressTest = 0.75
+        interpolation.progress = progressTest
+    }
+    
+    func testEaseInInterpolation() {
+        let from: CGFloat = 0.0
+        let to: CGFloat = 10.0
+        var progressTest: CGFloat = 0.0
+        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.EaseIn) { (result) in
+            if let answer = result as? CGFloat {
+                XCTAssertTrue(progressTest*10 > answer)
+            }
+        }
+        progressTest = 0.25
+        interpolation.progress = progressTest
+        progressTest = 0.5
+        interpolation.progress = progressTest
+        progressTest = 0.75
+        interpolation.progress = progressTest
+    }
+    
+    func testEaseOutInterpolation() {
+        let from: CGFloat = 0.0
+        let to: CGFloat = 10.0
+        var progressTest: CGFloat = 0.0
+        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.EaseOut) { (result) in
+            if let answer = result as? CGFloat {
+                XCTAssertTrue(progressTest*10 < answer)
+            }
+        }
+        progressTest = 0.25
+        interpolation.progress = progressTest
+        progressTest = 0.5
+        interpolation.progress = progressTest
+        progressTest = 0.75
+        interpolation.progress = progressTest
+    }
+    
 }

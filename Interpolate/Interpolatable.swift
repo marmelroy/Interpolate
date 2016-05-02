@@ -149,8 +149,6 @@ extension CATransform3D: Interpolatable {
     }
 }
 
-
-
 extension UIColor: Interpolatable {
     /**
      Vectorize UIColor.

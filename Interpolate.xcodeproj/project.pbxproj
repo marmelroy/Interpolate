@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		342F95411CD80CD60026E005 /* InterpolatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F95401CD80CD60026E005 /* InterpolatableTests.swift */; };
 		3440FD321CD4B83000AC4603 /* SpringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */; };
 		3448A0E61CBA2A1B00E818C2 /* Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3448A0E51CBA2A1B00E818C2 /* Interpolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3448A0ED1CBA2A1B00E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		342F95401CD80CD60026E005 /* InterpolatableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpolatableTests.swift; sourceTree = "<group>"; };
 		3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringInterpolation.swift; sourceTree = "<group>"; };
 		3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Interpolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3448A0E51CBA2A1B00E818C2 /* Interpolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpolate.h; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				3448A0F11CBA2A1B00E818C2 /* InterpolateTests.swift */,
+				342F95401CD80CD60026E005 /* InterpolatableTests.swift */,
 				3448A0F31CBA2A1B00E818C2 /* Info.plist */,
 			);
 			path = InterpolateTests;
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3448A0F21CBA2A1B00E818C2 /* InterpolateTests.swift in Sources */,
+				342F95411CD80CD60026E005 /* InterpolatableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
