@@ -18,6 +18,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     let logoView = UIImageView()
     let bojackView = UIImageView()
     let bojackShadowView = UIImageView()
+    
+    let initialBackgroundColor = UIColor(red: 84.0/255.0, green: 187.0/255.0, blue: 253.0/255.0, alpha: 1.0)
 
     // Interpolations
     var backgroundColorChange: Interpolate?
@@ -28,6 +30,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = initialBackgroundColor
         scrollView.contentSize = CGSizeMake(self.view.bounds.size.width*2, self.view.bounds.size.height)
         
         // Logo view
@@ -63,7 +66,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupInterpolations() {
-        backgroundColorChange = Interpolate(from: UIColor.whiteColor(), to: UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 76.0/255.0, alpha: 1.0), apply: { [weak self] (result) in
+        backgroundColorChange = Interpolate(from: initialBackgroundColor, to: UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), apply: { [weak self] (result) in
             if let color = result as? UIColor {
                 self?.view.backgroundColor = color
             }

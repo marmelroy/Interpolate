@@ -6,7 +6,7 @@
 # Interpolate
 Interpolate is a Swift interpolation framework for creating interactive gesture-driven animations.
 
-<p align="center"><img src="http://i.giphy.com/l4HobBq7BD6xKKGBi.gif" width="242" height="425"/></p>
+<p align="center"><img src="http://i.giphy.com/26FxolLz3AR1oz61y.gif" width="242" height="425"/></p>
 
 ## Usage
 
