@@ -21,7 +21,7 @@ Import Interpolate at the top of your Swift file.
 import Interpolate
 ```
 
-Create an Interpolate object with a from value, a to value and an apply closure.
+Create an Interpolate object with a from value, a to value and an apply closure that applies the interpolation's result to the target object.
 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(),
@@ -35,7 +35,7 @@ let colorChange = Interpolate(from: UIColor.whiteColor(),
 
 Next, you will need to define a way to translate your chosen gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
 
-For a gesture recognizer or delegate that reports every change (e.g. UIPanGestureRecognizer or a ScrollViewDidScroll) you can just apply the percentage progress directly to the Interpolate object:
+For a gesture recognizer or delegate that reports every step of its progress (e.g. UIPanGestureRecognizer or a ScrollViewDidScroll) you can just apply the percentage directly to the Interpolate object:
 ```swift
 @IBAction func handlePan(recognizer: UIPanGestureRecognizer) {
     let translation = recognizer.translationInView(self.view)
@@ -45,14 +45,14 @@ For a gesture recognizer or delegate that reports every change (e.g. UIPanGestur
 }
 ```
 
-For other types of gestures that only report a beginning and an end (e.g. a UILongPressGestureRecognizer), you can animate directly to a target progress value with a given duration. For example:
+For other types of gesture recognizers that only report a beginning and an end (e.g. a UILongPressGestureRecognizer), you can animate directly to a target progress value with a given duration. For example:
 ```swift
 @IBAction func handleLongPress(recognizer: UILongPressGestureRecognizer) {
     switch recognizer.state {
         case .Began:
-            backgroundColorChange!.animate(1.0, targetProgress: 1.0)
+            colorChange.animate(1.0, targetProgress: 1.0)
         case .Cancelled, .Ended, .Failed:
-            backgroundColorChange!.animate(0.3, targetProgress: 0.0)
+            colorChange.animate(0.3, targetProgress: 0.0)
         default: break
     }
 }
@@ -90,7 +90,7 @@ More types will be added over time.
 
 Interpolate is not just for dull linear interpolations.
 
-For smoother animations, consider using any of the following functions: **Linear, EaseIn, EaseOut, EaseInOut and Spring.**
+For smoother animations, consider using any of the following functions: **EaseIn, EaseOut, EaseInOut and Spring.**
 
 ```swift
 // Spring interpolation
@@ -114,7 +114,7 @@ let groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.heig
 })
 ```
 
-In fact, you can easily create your own interpolation functions. Just create an object that conforms to the InterpolationFunction protocol.
+In fact, you can easily create and use your own interpolation function - all you need is an object that conforms to the InterpolationFunction protocol.
 
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=Interpolate)
 ```ruby
