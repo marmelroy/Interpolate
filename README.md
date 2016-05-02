@@ -4,7 +4,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Interpolate
-Interpolate is a Swift interpolation framework for creating interactive gesture-driven animations.
+Interpolate is a powerful Swift interpolation framework for creating interactive gesture-driven animations.
 
 <p align="center"><img src="http://i.giphy.com/26FxolLz3AR1oz61y.gif" width="242" height="425"/></p>
 
@@ -33,7 +33,7 @@ let colorChange = Interpolate(from: UIColor.whiteColor(),
 })
 ```
 
-Next, you will need to find a way to translate the gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
+Next, you will need to find a way to translate your chosen gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
 
 Then just apply it to the Interpolate object.
 ```swift
@@ -60,7 +60,6 @@ Interpolate currently supports the interpolation of:
 - UIColor
 - CGAffineTransform
 - CATransform3D
-
 
 More types will be added over time.
 
