@@ -25,11 +25,11 @@ Create an Interpolate object with a from value, a to value and an apply closure 
 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(),
-  to: UIColor.redColor(),
-  apply: { [weak self] (result) in
-      if let color = result as? UIColor {
-        self?.view.backgroundColor = color
-      }
+to: UIColor.redColor(),
+apply: { [weak self] (result) in
+    if let color = result as? UIColor {
+      self?.view.backgroundColor = color
+    }
 })
 ```
 
@@ -50,9 +50,9 @@ For other types of gesture recognizers that only report a beginning and an end (
 @IBAction func handleLongPress(recognizer: UILongPressGestureRecognizer) {
     switch recognizer.state {
         case .Began:
-            colorChange.animate(1.0, targetProgress: 1.0)
+            colorChange.animate(1.0, duration: 0.3)
         case .Cancelled, .Ended, .Failed:
-            colorChange.animate(0.3, targetProgress: 0.0)
+            colorChange.animate(0.0, duration: 0.3)
         default: break
     }
 }
@@ -95,22 +95,22 @@ For smoother animations, consider using any of the following functions: **EaseIn
 ```swift
 // Spring interpolation
 let shadowPosition = Interpolate(from: -shadowView.frame.size.width,
-  to: (self.view.bounds.size.width - shadowView.frame.size.width)/2,
-  function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0),
-  apply: { [weak self] (result) in
-    if let originX = result as? CGFloat {
-        self?.shadowView.frame.origin.x = originX
-    }
+to: (self.view.bounds.size.width - shadowView.frame.size.width)/2,
+function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0),
+apply: { [weak self] (result) in
+  if let originX = result as? CGFloat {
+      self?.shadowView.frame.origin.x = originX
+  }
 })
 
 // Ease out interpolation
 let groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height),
-  to: CGPointMake(0, self.view.bounds.size.height - 150),
-  function: BasicInterpolation.EaseOut,
-  apply: { [weak self] (result) in
-      if let origin = result as? CGPoint {
-          self?.groundView.frame.origin = origin
-      }
+to: CGPointMake(0, self.view.bounds.size.height - 150),
+function: BasicInterpolation.EaseOut,
+apply: { [weak self] (result) in
+    if let origin = result as? CGPoint {
+        self?.groundView.frame.origin = origin
+    }
 })
 ```
 

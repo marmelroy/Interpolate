@@ -78,12 +78,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         })
         
-        bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
+        bojackPosition  = Interpolate(from: 0.3, to: 0.1, apply: { () in
+            
+        })
+            
+            Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
             if let originX = result as? CGFloat {
                 self?.bojackView.frame.origin.x = originX
             }
         })
-        
+        bojackPosition?.animate(duration: 0.3)
+        bojackPosition?.animate(1.0, duration: 0.3)
+
         bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (result) in
             if let originX = result as? CGFloat {
                 self?.bojackShadowView.frame.origin.x = originX

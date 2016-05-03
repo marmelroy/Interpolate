@@ -74,10 +74,10 @@ public class Interpolate {
     /**
      Animates to a targetProgress with a given duration.
      
-     - parameter duration:       Duration in seconds. CGFloat.
      - parameter targetProgress: Target progress value. Optional. If left empty assumes 1.0.
+     - parameter duration:       Duration in seconds. CGFloat.
      */
-    public func animate(duration: CGFloat, targetProgress: CGFloat = 1.0) {
+    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat) {
         self.targetProgress = targetProgress
         self.duration = duration
         displayLink?.invalidate()
