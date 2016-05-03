@@ -19,7 +19,7 @@ MODE="$1"
 
 if [ "$MODE" = "framework" ]; then
     echo "Building and testing Interpolate.framework."
-    xcodebuild \
+    xctool \
         -project Interpolate.xcodeproj \
         -scheme Interpolate \
         -sdk "$SDK" \
@@ -35,7 +35,7 @@ if [ "$MODE" = "examples" ]; then
     for example in examples/*/; do
         echo "Building $example."
         pod install --project-directory=$example
-        xcodebuild \
+        xctool \
             -workspace "${example}Sample.xcworkspace" \
             -scheme Sample \
             -sdk "$SDK" \
