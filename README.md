@@ -1,6 +1,6 @@
 ![Interpolate - Swift interpolation for gesture-driven animations](https://cloud.githubusercontent.com/assets/889949/14937965/8b70c90a-0f16-11e6-972a-0ffa39df3e3d.png)
 
-[![Build Status](https://travis-ci.org/marmelroy/Interpolate.svg?branch=master)](https://travis-ci.org/marmelroy/PeekPop) [![Version](http://img.shields.io/cocoapods/v/Interpolate.svg)](http://cocoapods.org/?q=PeekPop)
+[![Build Status](https://travis-ci.org/marmelroy/Interpolate.svg?branch=master)](https://travis-ci.org/marmelroy/Interpolate) [![Version](http://img.shields.io/cocoapods/v/Interpolate.svg)](http://cocoapods.org/?q=Interpolate)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Interpolate
@@ -143,3 +143,4 @@ github "marmelroy/Interpolate"
 - [https://github.com/icanzilb/EasyAnimation](https://github.com/icanzilb/EasyAnimation)
 - [https://github.com/robb/RBBAnimation](https://github.com/robb/RBBAnimation)
 - [https://github.com/facebook/pop](https://github.com/facebook/pop)
+- [http://bojackhorseman.com](http://bojackhorseman.com)
