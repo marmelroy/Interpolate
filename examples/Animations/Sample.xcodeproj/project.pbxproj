@@ -13,8 +13,6 @@
 		3448A1121CBA547300E818C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3448A1111CBA547300E818C2 /* Assets.xcassets */; };
 		3448A1151CBA547300E818C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3448A1131CBA547300E818C2 /* LaunchScreen.storyboard */; };
 		3448A1201CBA547300E818C2 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A11F1CBA547300E818C2 /* SampleTests.swift */; };
-		3448A1331CBA54F900E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A1301CBA54F200E818C2 /* Interpolate.framework */; };
-		3448A1341CBA54F900E818C2 /* Interpolate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A1301CBA54F200E818C2 /* Interpolate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,27 +23,6 @@
 			remoteGlobalIDString = 3448A1061CBA547300E818C2;
 			remoteInfo = Sample;
 		};
-		3448A12F1CBA54F200E818C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3448A0E21CBA2A1A00E818C2;
-			remoteInfo = Interpolate;
-		};
-		3448A1311CBA54F200E818C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3448A0EC1CBA2A1B00E818C2;
-			remoteInfo = InterpolateTests;
-		};
-		3448A1351CBA54F900E818C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 3448A0E11CBA2A1A00E818C2;
-			remoteInfo = Interpolate;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,7 +32,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3448A1341CBA54F900E818C2 /* Interpolate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,7 +49,6 @@
 		3448A11B1CBA547300E818C2 /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3448A11F1CBA547300E818C2 /* SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTests.swift; sourceTree = "<group>"; };
 		3448A1211CBA547300E818C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Interpolate.xcodeproj; path = ../../../Interpolate/Interpolate.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3448A1331CBA54F900E818C2 /* Interpolate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +72,6 @@
 		3448A0FE1CBA547300E818C2 = {
 			isa = PBXGroup;
 			children = (
-				3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */,
 				3448A1091CBA547300E818C2 /* Sample */,
 				3448A11E1CBA547300E818C2 /* SampleTests */,
 				3448A1081CBA547300E818C2 /* Products */,
@@ -136,15 +109,6 @@
 			path = SampleTests;
 			sourceTree = "<group>";
 		};
-		3448A12B1CBA54F200E818C2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3448A1301CBA54F200E818C2 /* Interpolate.framework */,
-				3448A1321CBA54F200E818C2 /* InterpolateTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,7 +124,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3448A1361CBA54F900E818C2 /* PBXTargetDependency */,
 			);
 			name = Sample;
 			productName = Sample;
@@ -215,12 +178,6 @@
 			mainGroup = 3448A0FE1CBA547300E818C2;
 			productRefGroup = 3448A1081CBA547300E818C2 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 3448A12B1CBA54F200E818C2 /* Products */;
-					ProjectRef = 3448A12A1CBA54F200E818C2 /* Interpolate.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3448A1061CBA547300E818C2 /* Sample */,
@@ -228,23 +185,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3448A1301CBA54F200E818C2 /* Interpolate.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Interpolate.framework;
-			remoteRef = 3448A12F1CBA54F200E818C2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3448A1321CBA54F200E818C2 /* InterpolateTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = InterpolateTests.xctest;
-			remoteRef = 3448A1311CBA54F200E818C2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3448A1051CBA547300E818C2 /* Resources */ = {
@@ -291,11 +231,6 @@
 			isa = PBXTargetDependency;
 			target = 3448A1061CBA547300E818C2 /* Sample */;
 			targetProxy = 3448A11C1CBA547300E818C2 /* PBXContainerItemProxy */;
-		};
-		3448A1361CBA54F900E818C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Interpolate;
-			targetProxy = 3448A1351CBA54F900E818C2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
