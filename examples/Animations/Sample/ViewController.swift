@@ -78,11 +78,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         })
         
-        bojackPosition  = Interpolate(from: 0.3, to: 0.1, apply: { () in
-            
-        })
-            
-            Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
+        bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
             if let originX = result as? CGFloat {
                 self?.bojackView.frame.origin.x = originX
             }
