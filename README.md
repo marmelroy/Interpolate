@@ -21,7 +21,7 @@ Import Interpolate at the top of your Swift file.
 import Interpolate
 ```
 
-Create an Interpolate object with a from value, a to value and an apply closure that applies the interpolation's result to the target object.
+Create an Interpolate object with a from value, a to value and an apply closure that applies the interpolation's result to the target object. 
 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(),
