@@ -86,21 +86,21 @@ public class SpringInterpolation: InterpolationFunction {
                 let part2: CGFloat = x0 * cos(omega1 * t)
                 let part3: CGFloat = ((beta * x0 + self.velocity) / omega1) * sin(omega1 * t)
                 return -x0 + envelope * (part2 + part3)
-            };
+            }
         } else if beta == omega0 {
             // Critically damped
             oscillation = {t in
                 let envelope: CGFloat = exp(-beta * t)
                 return -x0 + envelope * (x0 + (beta * x0 + self.velocity) * t)
-            };
+            }
         } else {
             // Overdamped
             oscillation = {t in
                 let envelope: CGFloat = exp(-beta * t)
                 let part2: CGFloat = x0 * cosh(omega2 * t)
                 let part3: CGFloat = ((beta * x0 + self.velocity) / omega2) * sinh(omega2 * t)
-                return -x0 + envelope * (part2 + part3);
-            };
+                return -x0 + envelope * (part2 + part3)
+            }
         }
         
         return oscillation(progress)
