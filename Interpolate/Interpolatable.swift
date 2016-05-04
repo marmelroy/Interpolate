@@ -183,11 +183,11 @@ public class IPValue {
     func toInterpolatable() -> Interpolatable {
         switch type {
             case .CGPoint:
-                return CGPointMake(vectors[0], vectors[1])
+                return CGPoint(x: vectors[0], y: vectors[1])
             case .CGRect:
-                return CGRectMake(vectors[0], vectors[1], vectors[2], vectors[3])
+                return CGRect(x: vectors[0], y: vectors[1], width: vectors[2], height: vectors[3])
             case .CGSize:
-                return CGSizeMake(vectors[0], vectors[1])
+                return CGSize(width: vectors[0], height: vectors[1])
             case .Double:
                 return vectors[0]
             case .CGFloat:
