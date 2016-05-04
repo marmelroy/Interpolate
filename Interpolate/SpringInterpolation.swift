@@ -76,7 +76,7 @@ public class SpringInterpolation: InterpolationFunction {
     
         let x0: CGFloat = -1
     
-        var oscillation: (CGFloat)->CGFloat
+        let oscillation: (CGFloat) -> CGFloat
     
         if beta < omega0 {
             // Underdamped
