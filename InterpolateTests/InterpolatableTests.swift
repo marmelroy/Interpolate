@@ -12,21 +12,21 @@ import XCTest
 class InterpolatableTests: XCTestCase {
     
     func testVectorizeCGPoint() {
-        let original = CGPointMake(20, 40)
+        let original = CGPoint(x: 20, y: 40)
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 2)
         XCTAssertEqual(vector.vectors[1], 40)
     }
     
     func testVectorizeCGRect() {
-        let original = CGRectMake(20, 40, 60, 80)
+        let original = CGRect(x: 20, y: 40, width: 60, height: 80)
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 4)
         XCTAssertEqual(vector.vectors[1], 40)
     }
     
     func testVectorizeCGSize() {
-        let original = CGPointMake(20, 40)
+        let original = CGPoint(x: 20, y: 40)
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 2)
         XCTAssertEqual(vector.vectors[1], 40)
