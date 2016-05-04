@@ -57,7 +57,7 @@ extension CGPoint: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self.x, self.y], type: .CGPoint)
+        return IPValue(type: .CGPoint, vectors: [x, y])
     }
 }
 
@@ -68,7 +68,7 @@ extension CGRect: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self.origin.x, self.origin.y, self.size.width, self.size.height], type: .CGRect)
+        return IPValue(type: .CGRect, vectors: [origin.x, origin.y, size.width, size.height])
     }
 }
 
@@ -79,7 +79,7 @@ extension CGSize: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self.width, self.height], type: .CGSize)
+        return IPValue(type: .CGSize, vectors: [width, height])
     }
 }
 
@@ -90,7 +90,7 @@ extension NSNumber: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [CGFloat(self)], type: .NSNumber)
+        return IPValue(type: .NSNumber, vectors: [CGFloat(self)])
     }
 }
 
@@ -101,7 +101,7 @@ extension Int: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [CGFloat(self)], type: .Int)
+        return IPValue(type: .Int, vectors: [CGFloat(self)])
     }
 }
 
@@ -112,7 +112,7 @@ extension Double: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [CGFloat(self)], type: .Double)
+        return IPValue(type: .Double, vectors: [CGFloat(self)])
     }
 }
 
@@ -123,7 +123,7 @@ extension CGFloat: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self], type: .CGFloat)
+        return IPValue(type: .CGFloat, vectors: [self])
     }
 }
 
@@ -134,7 +134,7 @@ extension CGAffineTransform: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self.a, self.b, self.c, self.d, self.tx, self.ty], type: .CGFloat)
+        return IPValue(type: .CGFloat, vectors: [a, b, c, d, tx, ty])
     }
 }
 
@@ -145,7 +145,7 @@ extension CATransform3D: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(vectors: [self.m11, self.m12, self.m13, self.m14, self.m21, self.m22, self.m23, self.m24, self.m31, self.m32, self.m33, self.m34, self.m41, self.m42, self.m43, self.m44], type: .CGFloat)
+        return IPValue(type: .CGFloat, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
     }
 }
 
@@ -156,26 +156,32 @@ extension UIColor: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        var red: CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0, white: CGFloat = 0.0, hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
-        let rgbConversion = self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        if rgbConversion {
-            return IPValue(vectors: [red, green, blue, alpha], type: .ColorRGB)
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        
+        if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return IPValue(type: .ColorRGB, vectors: [red, green, blue, alpha])
         }
-        let monochromeConversion = self.getWhite(&white, alpha: &alpha)
-        if monochromeConversion {
-            return IPValue(vectors: [white, alpha], type: .ColorMonochrome)
+        
+        var white: CGFloat = 0
+        
+        if getWhite(&white, alpha: &alpha) {
+            return IPValue(type: .ColorMonochrome, vectors: [white, alpha])
         }
-        self.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        return IPValue(vectors: [hue, saturation, brightness, alpha], type: .ColorHSB)
+        
+        var hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0
+        
+        getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        
+        return IPValue(type: .ColorHSB, vectors: [hue, saturation, brightness, alpha])
     }
 }
 
 public class IPValue {
     
-    var vectors: [CGFloat]
     let type: InterpolatableType
+    var vectors: [CGFloat]
     
-    init (vectors: [CGFloat], type: InterpolatableType) {
+    init (type: InterpolatableType, vectors: [CGFloat]) {
         self.vectors = vectors
         self.type = type
     }
