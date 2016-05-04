@@ -20,10 +20,11 @@ public class Interpolate {
             let nextInternalProgress = self.adjustedProgress(progress)
             let easingProgress = nextInternalProgress - internalProgress
             internalProgress = nextInternalProgress
-            let vectorCount = from.vectors.count
-            for index in 0..<vectorCount {
+            
+            for (index, _) in from.vectors.enumerate() {
                 current.vectors[index] += diffVectors[index]*easingProgress
             }
+            
             apply?(current.toInterpolatable())
         }
     }
@@ -104,11 +105,12 @@ public class Interpolate {
      */
     private func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat] {
         var diffArray = [CGFloat]()
-        let vectorCount = from.vectors.count
-        for index in 0..<vectorCount {
+        
+        for (index, _) in from.vectors.enumerate() {
             let vectorDiff = to.vectors[index] - from.vectors[index]
             diffArray.append(vectorDiff)
         }
+        
         return diffArray
     }
 
