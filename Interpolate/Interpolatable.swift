@@ -134,7 +134,7 @@ extension CGAffineTransform: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGFloat, vectors: [a, b, c, d, tx, ty])
+        return IPValue(type: .CGAffineTransform, vectors: [a, b, c, d, tx, ty])
     }
 }
 
@@ -145,7 +145,7 @@ extension CATransform3D: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGFloat, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
+        return IPValue(type: .CATransform3D, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
     }
 }
 
