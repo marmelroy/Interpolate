@@ -156,16 +156,22 @@ extension UIColor: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        var red: CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0, white: CGFloat = 0.0, hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0
-        let rgbConversion = self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        if rgbConversion {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        
+        if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
             return IPValue(vectors: [red, green, blue, alpha], type: .ColorRGB)
         }
-        let monochromeConversion = self.getWhite(&white, alpha: &alpha)
-        if monochromeConversion {
+        
+        var white: CGFloat = 0
+        
+        if getWhite(&white, alpha: &alpha) {
             return IPValue(vectors: [white, alpha], type: .ColorMonochrome)
         }
-        self.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        
+        var hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0
+        
+        getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        
         return IPValue(vectors: [hue, saturation, brightness, alpha], type: .ColorHSB)
     }
 }
