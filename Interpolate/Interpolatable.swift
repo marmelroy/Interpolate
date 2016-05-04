@@ -57,7 +57,7 @@ extension CGPoint: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGPoint, vectors: [self.x, self.y])
+        return IPValue(type: .CGPoint, vectors: [x, y])
     }
 }
 
@@ -68,7 +68,7 @@ extension CGRect: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGRect, vectors: [self.origin.x, self.origin.y, self.size.width, self.size.height])
+        return IPValue(type: .CGRect, vectors: [origin.x, origin.y, size.width, size.height])
     }
 }
 
@@ -79,7 +79,7 @@ extension CGSize: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGSize, vectors: [self.width, self.height])
+        return IPValue(type: .CGSize, vectors: [width, height])
     }
 }
 
@@ -134,7 +134,7 @@ extension CGAffineTransform: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGFloat, vectors: [self.a, self.b, self.c, self.d, self.tx, self.ty])
+        return IPValue(type: .CGFloat, vectors: [a, b, c, d, tx, ty])
     }
 }
 
@@ -145,7 +145,7 @@ extension CATransform3D: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGFloat, vectors: [self.m11, self.m12, self.m13, self.m14, self.m21, self.m22, self.m23, self.m24, self.m31, self.m32, self.m33, self.m34, self.m41, self.m42, self.m43, self.m44])
+        return IPValue(type: .CGFloat, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
     }
 }
 
