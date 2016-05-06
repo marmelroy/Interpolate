@@ -51,13 +51,13 @@ public class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public init(from: Interpolatable, to: Interpolatable, function: InterpolationFunction = BasicInterpolation.Linear, apply: (Interpolatable -> ())) {
+    public init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
         let fromVector = from.vectorize()
         let toVector = to.vectorize()
         self.current = fromVector
         self.from = fromVector
         self.to = toVector
-        self.apply = apply
+        self.apply = { let _ = ($0 as? T).flatMap(apply) }
         self.function = function
         self.diffVectors = calculateDiff(fromVector, to: toVector)
     }
