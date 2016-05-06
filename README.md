@@ -26,10 +26,8 @@ Create an Interpolate object with a from value, a to value and an apply closure 
 ```swift
 let colorChange = Interpolate(from: UIColor.whiteColor(),
 to: UIColor.redColor(),
-apply: { [weak self] (result) in
-    if let color = result as? UIColor {
-      self?.view.backgroundColor = color
-    }
+apply: { [weak self] (color) in
+    self?.view.backgroundColor = color
 })
 ```
 
@@ -97,20 +95,16 @@ For smoother animations, consider using any of the following functions: **EaseIn
 let shadowPosition = Interpolate(from: -shadowView.frame.size.width,
 to: (self.view.bounds.size.width - shadowView.frame.size.width)/2,
 function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0),
-apply: { [weak self] (result) in
-  if let originX = result as? CGFloat {
-      self?.shadowView.frame.origin.x = originX
-  }
+apply: { [weak self] (originX) in
+    self?.shadowView.frame.origin.x = originX
 })
 
 // Ease out interpolation
 let groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height),
 to: CGPointMake(0, self.view.bounds.size.height - 150),
 function: BasicInterpolation.EaseOut,
-apply: { [weak self] (result) in
-    if let origin = result as? CGPoint {
-        self?.groundView.frame.origin = origin
-    }
+apply: { [weak self] (origin) in
+    self?.groundView.frame.origin = origin
 })
 ```
 
