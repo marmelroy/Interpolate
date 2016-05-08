@@ -66,36 +66,26 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupInterpolations() {
-        backgroundColorChange = Interpolate(from: initialBackgroundColor, to: UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), apply: { [weak self] (result) in
-            if let color = result as? UIColor {
-                self?.view.backgroundColor = color
-            }
+        backgroundColorChange = Interpolate(from: initialBackgroundColor, to: UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), apply: { [weak self] (color) in
+            self?.view.backgroundColor = color
         })
         
-        logoAlpha = Interpolate(from: 1.0, to: 0.0, apply: { [weak self] (result) in
-            if let alpha = result as? CGFloat {
-                self?.logoView.alpha = alpha
-            }
+        logoAlpha = Interpolate(from: 1.0, to: 0.0, apply: { [weak self] (alpha) in
+            self?.logoView.alpha = alpha
         })
         
-        bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (result) in
-            if let originX = result as? CGFloat {
-                self?.bojackView.frame.origin.x = originX
-            }
+        bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (originX) in
+            self?.bojackView.frame.origin.x = originX
         })
         bojackPosition?.animate(duration: 0.3)
         bojackPosition?.animate(1.0, duration: 0.3)
 
-        bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (result) in
-            if let originX = result as? CGFloat {
-                self?.bojackShadowView.frame.origin.x = originX
-            }
+        bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (originX) in
+            self?.bojackShadowView.frame.origin.x = originX
         })
         
-        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), function: BasicInterpolation.EaseOut, apply: { [weak self] (result) in
-            if let origin = result as? CGPoint {
-                self?.groundView.frame.origin = origin
-            }
+        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), function: BasicInterpolation.EaseOut, apply: { [weak self] (origin) in
+            self?.groundView.frame.origin = origin
         })
         
     }
