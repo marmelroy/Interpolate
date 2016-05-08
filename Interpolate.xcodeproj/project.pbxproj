@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		342F95411CD80CD60026E005 /* InterpolatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F95401CD80CD60026E005 /* InterpolatableTests.swift */; };
+		3440B2571CDFD0B3009A7712 /* Interpolate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */; };
+		3440B2581CDFD0B3009A7712 /* Interpolatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF09A01CBAC7E800D1DD32 /* Interpolatable.swift */; };
+		3440B2591CDFD0B3009A7712 /* BasicInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */; };
+		3440B25A1CDFD0B3009A7712 /* SpringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */; };
+		3440B25D1CDFD0B3009A7712 /* Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3448A0E51CBA2A1B00E818C2 /* Interpolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3440FD321CD4B83000AC4603 /* SpringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */; };
 		3448A0E61CBA2A1B00E818C2 /* Interpolate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3448A0E51CBA2A1B00E818C2 /* Interpolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3448A0ED1CBA2A1B00E818C2 /* Interpolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */; };
@@ -29,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		342F95401CD80CD60026E005 /* InterpolatableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpolatableTests.swift; sourceTree = "<group>"; };
+		3440B2541CDFD099009A7712 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "/Users/marmelroy/Documents/Projects/OpenSource/Interpolate/Interpolate/Info-tvOS.plist"; sourceTree = "<absolute>"; };
+		3440B2621CDFD0B3009A7712 /* Interpolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Interpolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringInterpolation.swift; sourceTree = "<group>"; };
 		3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Interpolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3448A0E51CBA2A1B00E818C2 /* Interpolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpolate.h; sourceTree = "<group>"; };
@@ -42,6 +49,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3440B25B1CDFD0B3009A7712 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3448A0DE1CBA2A1A00E818C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -74,6 +88,7 @@
 			children = (
 				3448A0E21CBA2A1A00E818C2 /* Interpolate.framework */,
 				3448A0EC1CBA2A1B00E818C2 /* InterpolateTests.xctest */,
+				3440B2621CDFD0B3009A7712 /* Interpolate.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +98,7 @@
 			children = (
 				3448A0E51CBA2A1B00E818C2 /* Interpolate.h */,
 				3448A0E71CBA2A1B00E818C2 /* Info.plist */,
+				3440B2541CDFD099009A7712 /* Info-tvOS.plist */,
 				3448A0FC1CBA2A4400E818C2 /* Interpolate.swift */,
 				347179CA1CBAEE410072B7AA /* BasicInterpolation.swift */,
 				3440FD311CD4B83000AC4603 /* SpringInterpolation.swift */,
@@ -104,6 +120,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3440B25C1CDFD0B3009A7712 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3440B25D1CDFD0B3009A7712 /* Interpolate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3448A0DF1CBA2A1A00E818C2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +139,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3440B2551CDFD0B3009A7712 /* Interpolate tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3440B25F1CDFD0B3009A7712 /* Build configuration list for PBXNativeTarget "Interpolate tvOS" */;
+			buildPhases = (
+				3440B2561CDFD0B3009A7712 /* Sources */,
+				3440B25B1CDFD0B3009A7712 /* Frameworks */,
+				3440B25C1CDFD0B3009A7712 /* Headers */,
+				3440B25E1CDFD0B3009A7712 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Interpolate tvOS";
+			productName = Interpolate;
+			productReference = 3440B2621CDFD0B3009A7712 /* Interpolate.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		3448A0E11CBA2A1A00E818C2 /* Interpolate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3448A0F61CBA2A1B00E818C2 /* Build configuration list for PBXNativeTarget "Interpolate" */;
@@ -182,12 +224,20 @@
 			projectRoot = "";
 			targets = (
 				3448A0E11CBA2A1A00E818C2 /* Interpolate */,
+				3440B2551CDFD0B3009A7712 /* Interpolate tvOS */,
 				3448A0EB1CBA2A1B00E818C2 /* InterpolateTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3440B25E1CDFD0B3009A7712 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3448A0E01CBA2A1A00E818C2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,6 +255,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3440B2561CDFD0B3009A7712 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3440B2571CDFD0B3009A7712 /* Interpolate.swift in Sources */,
+				3440B2581CDFD0B3009A7712 /* Interpolatable.swift in Sources */,
+				3440B2591CDFD0B3009A7712 /* BasicInterpolation.swift in Sources */,
+				3440B25A1CDFD0B3009A7712 /* SpringInterpolation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3448A0DD1CBA2A1A00E818C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +297,45 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3440B2601CDFD0B3009A7712 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 4;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Interpolate/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roymarmelstein.Interpolate;
+				PRODUCT_NAME = Interpolate;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3440B2611CDFD0B3009A7712 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 4;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Interpolate/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roymarmelstein.Interpolate;
+				PRODUCT_NAME = Interpolate;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+			};
+			name = Release;
+		};
 		3448A0F41CBA2A1B00E818C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -387,6 +487,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3440B25F1CDFD0B3009A7712 /* Build configuration list for PBXNativeTarget "Interpolate tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3440B2601CDFD0B3009A7712 /* Debug */,
+				3440B2611CDFD0B3009A7712 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3448A0DC1CBA2A1A00E818C2 /* Build configuration list for PBXProject "Interpolate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
