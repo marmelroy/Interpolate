@@ -10,17 +10,15 @@ import Foundation
 
 /**
  Basic interpolation function.
- 
- - Linear:    Linear interpolation.
- - EaseIn:    Ease in interpolation.
- - EaseOut:   Ease out interpolation.
- - EaseInOut: Ease in out interpolation.
  */
 public enum BasicInterpolation: InterpolationFunction {
-    
+    /// Linear interpolation.
     case Linear
+    /// Ease in interpolation.
     case EaseIn
+    /// Ease out interpolation.
     case EaseOut
+    /// Ease in out interpolation.
     case EaseInOut
     
     /**

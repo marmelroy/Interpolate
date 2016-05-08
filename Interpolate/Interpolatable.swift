@@ -13,45 +13,48 @@ import QuartzCore
  *  Interpolatable protocol. Requires implementation of a vectorize function.
  */
 public protocol Interpolatable {
+    /**
+     Vectorizes the type and returns and IPValue
+     */
     func vectorize() -> IPValue
 }
 
 /**
  Supported interpolatable types.
-
- - CATransform3D:       CATransform3D type
- - CGAffineTransform:   CGAffineTransform type.
- - CGFloat:             CGFloat type.
- - CGPoint:             CGPoint type.
- - CGRect:              CGRect type.
- - CGSize:              CGSize type.
- - ColorHSB:            ColorHSB type.
- - ColorMonochrome:     ColorMonochrome type.
- - ColorRGB:            ColorRGB type.
- - Double:              Double type.
- - Int:                 Int type.
- - NSNumber:            NSNumber type.
- - UIEdgeInsets:        UIEdgeInsets type.
  */
 
 public enum InterpolatableType {
+    /// CATransform3D type.
     case CATransform3D
+    /// CGAffineTransform type.
     case CGAffineTransform
+    /// CGFloat type.
     case CGFloat
+    /// CGPoint type.
     case CGPoint
+    /// CGRect type.
     case CGRect
+    /// CGSize type.
     case CGSize
+    /// ColorHSB type.
     case ColorHSB
+    /// ColorMonochrome type.
     case ColorMonochrome
+    /// ColorRGB type.
     case ColorRGB
+    /// Double type.
     case Double
+    /// Int type.
     case Int
+    /// NSNumber type.
     case NSNumber
+    /// UIEdgeInsets type.
     case UIEdgeInsets
 }
 
 // MARK: Extensions
 
+/// CATransform3D Interpolatable extension.
 extension CATransform3D: Interpolatable {
     /**
      Vectorize CATransform3D.
@@ -63,6 +66,7 @@ extension CATransform3D: Interpolatable {
     }
 }
 
+/// CGAffineTransform Interpolatable extension.
 extension CGAffineTransform: Interpolatable {
     /**
      Vectorize CGAffineTransform.
@@ -74,6 +78,7 @@ extension CGAffineTransform: Interpolatable {
     }
 }
 
+/// CGFloat Interpolatable extension.
 extension CGFloat: Interpolatable {
     /**
      Vectorize CGFloat.
@@ -85,6 +90,7 @@ extension CGFloat: Interpolatable {
     }
 }
 
+/// CGPoint Interpolatable extension.
 extension CGPoint: Interpolatable {
     /**
      Vectorize CGPoint.
@@ -96,6 +102,7 @@ extension CGPoint: Interpolatable {
     }
 }
 
+/// CGRect Interpolatable extension.
 extension CGRect: Interpolatable {
     /**
      Vectorize CGRect.
@@ -107,6 +114,7 @@ extension CGRect: Interpolatable {
     }
 }
 
+/// CGSize Interpolatable extension.
 extension CGSize: Interpolatable {
     /**
      Vectorize CGSize.
@@ -118,7 +126,7 @@ extension CGSize: Interpolatable {
     }
 }
 
-
+/// Double Interpolatable extension.
 extension Double: Interpolatable {
     /**
      Vectorize Double.
@@ -130,7 +138,7 @@ extension Double: Interpolatable {
     }
 }
 
-
+/// Int Interpolatable extension.
 extension Int: Interpolatable {
     /**
      Vectorize Int.
@@ -142,6 +150,7 @@ extension Int: Interpolatable {
     }
 }
 
+/// NSNumber Interpolatable extension.
 extension NSNumber: Interpolatable {
     /**
      Vectorize NSNumber.
@@ -153,6 +162,7 @@ extension NSNumber: Interpolatable {
     }
 }
 
+/// UIColor Interpolatable extension.
 extension UIColor: Interpolatable {
     /**
      Vectorize UIColor.
@@ -180,6 +190,7 @@ extension UIColor: Interpolatable {
     }
 }
 
+/// UIEdgeInsets Interpolatable extension.
 extension UIEdgeInsets: Interpolatable {
     /**
      Vectorize UIEdgeInsets.
@@ -191,7 +202,7 @@ extension UIEdgeInsets: Interpolatable {
     }
 }
 
-
+/// IPValue class. Contains a vectorized version of an Interpolatable type.
 public class IPValue {
     
     let type: InterpolatableType
