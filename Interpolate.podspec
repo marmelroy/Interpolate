@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Interpolate"
-  s.version          = "0.1.3"
+  s.version          = "0.1.4"
   s.summary          = "Swift interpolation framework for gesture-driven animations."
 
 # This description is used to generate tags and improve search results.
@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/marmelroy"
 
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
   s.requires_arc = true
 
   s.source_files = "Interpolate"
