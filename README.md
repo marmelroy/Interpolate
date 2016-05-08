@@ -81,6 +81,7 @@ Interpolate currently supports the interpolation of:
 - UIColor
 - CGAffineTransform
 - CATransform3D
+- UIEdgeInsets
 
 More types will be added over time.
 
