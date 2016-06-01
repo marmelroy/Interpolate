@@ -1,0 +1,16 @@
+PODS:
+  - Interpolate (0.1.4)
+
+DEPENDENCIES:
+  - Interpolate (from `../..`)
+
+EXTERNAL SOURCES:
+  Interpolate:
+    :path: "../.."
+
+SPEC CHECKSUMS:
+  Interpolate: b59d8bf719809fa8aa119bc4cc4542cbed3fe46d
+
+PODFILE CHECKSUM: 86d7e8aad150275101045be664d03dfb71352abd
+
+COCOAPODS: 1.0.0
