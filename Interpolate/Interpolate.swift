@@ -78,7 +78,7 @@ public class Interpolate {
      - parameter targetProgress: Target progress value. Optional. If left empty assumes 1.0.
      - parameter duration:       Duration in seconds. CGFloat.
      */
-    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat, complete complete:(()->())? = nil) {
+    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat, complete:(()->())? = nil) {
         self.targetProgress = targetProgress
         self.duration = duration
         self.complete = complete
