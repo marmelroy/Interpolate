@@ -77,7 +77,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (originX) in
             self?.bojackView.frame.origin.x = originX
         })
-        bojackPosition?.animate(duration: 0.3, complete: {
+        bojackPosition?.animate(duration: 0.3, completion: {
             print("Completed Animation")
         })
 
