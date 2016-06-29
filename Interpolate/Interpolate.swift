@@ -38,6 +38,7 @@ public class Interpolate {
     private var targetProgress: CGFloat = 0.0
     private var apply: (Interpolatable -> ())?
     private var displayLink: CADisplayLink?
+    private var complete:(()->())?
     
     //MARK: Lifecycle
     
@@ -77,9 +78,10 @@ public class Interpolate {
      - parameter targetProgress: Target progress value. Optional. If left empty assumes 1.0.
      - parameter duration:       Duration in seconds. CGFloat.
      */
-    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat) {
+    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat, complete:(()->())? = nil) {
         self.targetProgress = targetProgress
         self.duration = duration
+        self.complete = complete
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
         displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
@@ -132,6 +134,9 @@ public class Interpolate {
         if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
             progress = targetProgress
             stopAnimation()
+            if let complete = complete {
+                complete()
+            }
         }
     }
     

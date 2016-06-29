@@ -78,7 +78,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self?.bojackView.frame.origin.x = originX
         })
         bojackPosition?.animate(duration: 0.3)
-        bojackPosition?.animate(1.0, duration: 0.3)
+        bojackPosition?.animate(1.0, duration: 0.3, complete: {
+            print("Completed Animation")
+        })
 
         bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (originX) in
             self?.bojackShadowView.frame.origin.x = originX
