@@ -39,8 +39,8 @@ public class Interpolate {
     private var apply: (Interpolatable -> ())?
     private var displayLink: CADisplayLink?
     
-    // Completion handler, can be modified from an external class. 
-    var completionHandler:(()->())?
+    // Animation completion handler, called when animate function stops.
+    private var animationCompletion:(()->())?
     
     //MARK: Lifecycle
     
@@ -83,7 +83,7 @@ public class Interpolate {
     public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat, completion:(()->())? = nil) {
         self.targetProgress = targetProgress
         self.duration = duration
-        self.completionHandler = completion
+        self.animationCompletion = completion
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
         displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
@@ -94,6 +94,7 @@ public class Interpolate {
      */
     public func stopAnimation() {
         displayLink?.invalidate()
+        animationCompletion?()
     }
     
     //MARK: Internal
@@ -136,7 +137,6 @@ public class Interpolate {
         if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
             progress = targetProgress
             stopAnimation()
-            completionHandler?()
         }
     }
     
