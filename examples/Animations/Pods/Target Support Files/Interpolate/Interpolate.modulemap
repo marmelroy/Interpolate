@@ -1,0 +1,6 @@
+framework module Interpolate {
+  umbrella header "Interpolate-umbrella.h"
+
+  export *
+  module * { export * }
+}
