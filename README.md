@@ -125,7 +125,7 @@ In fact, you can easily create and use your own interpolation function - all you
 ### Setting up with [CocoaPods](http://cocoapods.org/?q=Interpolate)
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-pod 'Interpolate', '~> 0.1'
+pod 'Interpolate', '~> 0.2'
 ```
 
 ### Setting up with Carthage
