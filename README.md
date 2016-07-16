@@ -32,6 +32,14 @@ to: UIColor.redColor(),
 apply: { [weak self] (color) in
     self?.view.backgroundColor = color
 })
+
+Alternatively, you can specify multiple values for the interpolation in an array. The Swift compiler might have issues to infer the type of the array so it's best to be explicit. 
+```swift
+let colors: [UIColor] = [UIColor.whiteColor(), UIColor.redColor(), UIColor.greenColor()]
+let colorChange = Interpolate(values: colors,
+apply: { [weak self] (color) in
+    self?.view.backgroundColor = color
+})
 ```
 
 Next, you will need to define a way to translate your chosen gesture's progress to a percentage value (i.e. a CGFloat between 0.0 and 1.0).
