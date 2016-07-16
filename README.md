@@ -32,6 +32,7 @@ to: UIColor.redColor(),
 apply: { [weak self] (color) in
     self?.view.backgroundColor = color
 })
+```
 
 Alternatively, you can specify multiple values for the interpolation in an array. The Swift compiler might have issues to infer the type of the array so it's best to be explicit. 
 ```swift
