@@ -66,7 +66,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupInterpolations() {
-        backgroundColorChange = Interpolate(from: initialBackgroundColor, to: UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), apply: { [weak self] (color) in
+        let colors: [UIColor] = [initialBackgroundColor, UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), UIColor.greenColor()]
+        backgroundColorChange = Interpolate(values: colors, apply: { [weak self]  (color) in
             self?.view.backgroundColor = color
         })
         
@@ -76,9 +77,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         
         bojackPosition  = Interpolate(from: (self.view.bounds.size.width - bojackView.frame.size.width)/2, to: -bojackView.frame.size.width, apply: { [weak self] (originX) in
             self?.bojackView.frame.origin.x = originX
-        })
-        bojackPosition?.animate(duration: 0.3, completion: {
-            print("Completed Animation")
         })
 
         bojackShadowPosition = Interpolate(from: -bojackShadowView.frame.size.width, to: (self.view.bounds.size.width - bojackShadowView.frame.size.width)/2, function: SpringInterpolation(damping: 30.0, velocity: 0.0, mass: 1.0, stiffness: 100.0), apply: { [weak self] (originX) in

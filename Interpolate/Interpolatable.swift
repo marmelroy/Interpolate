@@ -208,6 +208,11 @@ public class IPValue {
     let type: InterpolatableType
     var vectors: [CGFloat]
     
+    init(value: IPValue) {
+        self.vectors = value.vectors
+        self.type = value.type
+    }
+    
     init (type: InterpolatableType, vectors: [CGFloat]) {
         self.vectors = vectors
         self.type = type

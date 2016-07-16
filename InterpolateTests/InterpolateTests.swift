@@ -21,6 +21,28 @@ class InterpolateTests: XCTestCase {
         super.tearDown()
     }
     
+    func testKeyFrameInterpolation() {
+        var progressTest: CGFloat = 0.0
+        var step: Int = 0
+        let values: [CGFloat] = [0.0, 8.0, 4.0]
+        let interpolation = Interpolate(values: values) { (result) in
+            XCTAssertEqual(values[step], result)
+        }
+        progressTest = 0.5
+        step = 1
+        interpolation.progress = progressTest
+        progressTest = 1.0
+        step = 2
+        interpolation.progress = progressTest
+        progressTest = 0.5
+        step = 1
+        interpolation.progress = progressTest
+        progressTest = 0.0
+        step = 0
+        interpolation.progress = progressTest
+    }
+
+    
     func testLinearInterpolation() {
         let from: CGFloat = 0.0
         let to: CGFloat = 10.0

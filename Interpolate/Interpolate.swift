@@ -16,23 +16,27 @@ public class Interpolate {
     /// Progress variable. Takes a value between 0.0 and 1,0. CGFloat. Setting it triggers the apply closure.
     public var progress: CGFloat = 0.0 {
         didSet {
+            // We make sure progress is between 0.0 and 1.0
             progress = max(0, min(progress, 1.0))
-            let nextInternalProgress = self.adjustedProgress(progress)
-            let easingProgress = nextInternalProgress - internalProgress
-            internalProgress = nextInternalProgress
-            let vectorCount = from.vectors.count
+            internalProgress = self.internalAdjustedProgress(progress)
+            let valueForProgress = internalProgress*(valuesCount - 1)
+            let diffVectorIndex = max(Int(ceil(valueForProgress)) - 1, 0)
+            let diffVector = diffVectors[diffVectorIndex]
+            let originValue = values[diffVectorIndex]
+            let adjustedProgress = valueForProgress - CGFloat(diffVectorIndex)
             for index in 0..<vectorCount {
-                current.vectors[index] += diffVectors[index]*easingProgress
+                current.vectors[index] = originValue.vectors[index] + diffVector[index]*adjustedProgress
             }
             apply?(current.toInterpolatable())
         }
     }
     
     private var current: IPValue
-    private let from: IPValue
-    private let to: IPValue
+    private let values: [IPValue]
+    private var valuesCount: CGFloat { get { return CGFloat(values.count) } }
+    private var vectorCount: Int { get { return current.vectors.count } }
     private var duration: CGFloat = 0.2
-    private var diffVectors = [CGFloat]()
+    private var diffVectors = [[CGFloat]]()
     private let function: InterpolationFunction
     private var internalProgress: CGFloat = 0.0
     private var targetProgress: CGFloat = 0.0
@@ -44,6 +48,27 @@ public class Interpolate {
     
     //MARK: Lifecycle
     
+
+    /**
+     Initialises an Interpolate object.
+     
+     - parameter values:   Array of interpolatable objects, in order.
+     - parameter apply:    Apply closure.
+     - parameter function: Interpolation function (Basic / Spring / Custom).
+     
+     - returns: an Interpolate object.
+     */
+    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
+        assert(values.count >= 2, "You should provide at least two values")
+        let vectorizedValues = values.map({$0.vectorize()})
+        self.values = vectorizedValues
+        self.current = IPValue(value: self.values[0])
+        self.apply = { let _ = ($0 as? T).flatMap(apply) }
+        self.function = function
+        self.diffVectors = self.calculateDiff(vectorizedValues)
+    }
+    
+    
     /**
      Initialises an Interpolate object.
      
@@ -54,16 +79,12 @@ public class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
-        let fromVector = from.vectorize()
-        let toVector = to.vectorize()
-        self.current = fromVector
-        self.from = fromVector
-        self.to = toVector
-        self.apply = { let _ = ($0 as? T).flatMap(apply) }
-        self.function = function
-        self.diffVectors = calculateDiff(fromVector, to: toVector)
+    public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
+        let values = [from, to]
+        self.init(values: values, function: function, apply: apply)
     }
+
+
     
     /**
      Invalidates the apply function
@@ -108,14 +129,19 @@ public class Interpolate {
      
      - returns: Array of diffs. CGFloat
      */
-    private func calculateDiff(from: IPValue, to: IPValue) -> [CGFloat] {
-        var diffArray = [CGFloat]()
-        let vectorCount = from.vectors.count
-        for index in 0..<vectorCount {
-            let vectorDiff = to.vectors[index] - from.vectors[index]
-            diffArray.append(vectorDiff)
+    private func calculateDiff(values: [IPValue]) -> [[CGFloat]] {
+        var valuesDiffArray = [[CGFloat]]()
+        for i in 0..<(values.count - 1) {
+            var diffArray = [CGFloat]()
+            let from = values[i]
+            let to = values[i+1]
+            for index in 0..<from.vectors.count {
+                let vectorDiff = to.vectors[index] - from.vectors[index]
+                diffArray.append(vectorDiff)
+            }
+            valuesDiffArray.append(diffArray)
         }
-        return diffArray
+        return valuesDiffArray
     }
 
     /**
@@ -125,7 +151,7 @@ public class Interpolate {
      
      - returns: Adjusted progress value. CGFloat.
      */
-    private func adjustedProgress(progressValue: CGFloat) -> CGFloat {
+    private func internalAdjustedProgress(progressValue: CGFloat) -> CGFloat {
         return function.apply(progressValue)
     }
     
