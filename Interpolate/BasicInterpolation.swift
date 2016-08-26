@@ -13,13 +13,13 @@ import Foundation
  */
 public enum BasicInterpolation: InterpolationFunction {
     /// Linear interpolation.
-    case Linear
+    case linear
     /// Ease in interpolation.
-    case EaseIn
+    case easeIn
     /// Ease out interpolation.
-    case EaseOut
+    case easeOut
     /// Ease in out interpolation.
-    case EaseInOut
+    case easeInOut
     
     /**
      Apply interpolation function
@@ -28,15 +28,15 @@ public enum BasicInterpolation: InterpolationFunction {
      
      - returns: Adjusted progress value with interpolation function. 
      */
-    public func apply(progress: CGFloat) -> CGFloat {
+    public func apply(_ progress: CGFloat) -> CGFloat {
         switch self {
-        case .Linear:
+        case .linear:
             return progress
-        case .EaseIn:
+        case .easeIn:
             return progress*progress*progress
-        case .EaseOut:
+        case .easeOut:
             return (progress - 1)*(progress - 1)*(progress - 1) + 1.0
-        case .EaseInOut:
+        case .easeInOut:
             if progress < 0.5 {
                 return 4.0*progress*progress*progress
             } else {

@@ -21,16 +21,16 @@
 //
 
 /// Spring interpolation
-public class SpringInterpolation: InterpolationFunction {
+open class SpringInterpolation: InterpolationFunction {
     
     /// Damping
-    public var damping: CGFloat = 10.0
+    open var damping: CGFloat = 10.0
     /// Mass
-    public var mass: CGFloat = 1.0
+    open var mass: CGFloat = 1.0
     /// Stiffness
-    public var stiffness: CGFloat = 100.0
+    open var stiffness: CGFloat = 100.0
     /// Velocity
-    public var velocity: CGFloat = 0.0
+    open var velocity: CGFloat = 0.0
     
     /**
      Initialise Spring interpolation
@@ -63,7 +63,7 @@ public class SpringInterpolation: InterpolationFunction {
      
      - returns: Adjusted progress value with interpolation function.
      */
-    public func apply(progress: CGFloat) -> CGFloat {
+    open func apply(_ progress: CGFloat) -> CGFloat {
     
         if damping <= 0.0 || stiffness <= 0.0 || mass <= 0.0 {
             fatalError("Incorrect animation values")

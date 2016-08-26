@@ -9,12 +9,12 @@
 import Foundation
 
 /// Interpolate class. Responsible for conducting interpolations.
-public class Interpolate {
+open class Interpolate {
     
     //MARK: Properties and variables
     
     /// Progress variable. Takes a value between 0.0 and 1,0. CGFloat. Setting it triggers the apply closure.
-    public var progress: CGFloat = 0.0 {
+    open var progress: CGFloat = 0.0 {
         didSet {
             // We make sure progress is between 0.0 and 1.0
             progress = max(0, min(progress, 1.0))
@@ -31,20 +31,20 @@ public class Interpolate {
         }
     }
     
-    private var current: IPValue
-    private let values: [IPValue]
-    private var valuesCount: CGFloat { get { return CGFloat(values.count) } }
-    private var vectorCount: Int { get { return current.vectors.count } }
-    private var duration: CGFloat = 0.2
-    private var diffVectors = [[CGFloat]]()
-    private let function: InterpolationFunction
-    private var internalProgress: CGFloat = 0.0
-    private var targetProgress: CGFloat = 0.0
-    private var apply: (Interpolatable -> ())?
-    private var displayLink: CADisplayLink?
+    fileprivate var current: IPValue
+    fileprivate let values: [IPValue]
+    fileprivate var valuesCount: CGFloat { get { return CGFloat(values.count) } }
+    fileprivate var vectorCount: Int { get { return current.vectors.count } }
+    fileprivate var duration: CGFloat = 0.2
+    fileprivate var diffVectors = [[CGFloat]]()
+    fileprivate let function: InterpolationFunction
+    fileprivate var internalProgress: CGFloat = 0.0
+    fileprivate var targetProgress: CGFloat = 0.0
+    fileprivate var apply: ((Interpolatable) -> ())?
+    fileprivate var displayLink: CADisplayLink?
     
     // Animation completion handler, called when animate function stops.
-    private var animationCompletion:(()->())?
+    fileprivate var animationCompletion:(()->())?
     
     //MARK: Lifecycle
     
@@ -58,7 +58,7 @@ public class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
+    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.linear, apply: ((T) -> ())) {
         assert(values.count >= 2, "You should provide at least two values")
         let vectorizedValues = values.map({$0.vectorize()})
         self.values = vectorizedValues
@@ -79,7 +79,7 @@ public class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.Linear, apply: (T -> ())) {
+    public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.linear, apply: ((T) -> ())) {
         let values = [from, to]
         self.init(values: values, function: function, apply: apply)
     }
@@ -89,7 +89,7 @@ public class Interpolate {
     /**
      Invalidates the apply function
      */
-    public func invalidate() {
+    open func invalidate() {
         apply = nil
     }
 
@@ -102,19 +102,19 @@ public class Interpolate {
      - parameter duration:       Duration in seconds. CGFloat.
      - parameter completion:     Completion handler. Optional.
      */
-    public func animate(targetProgress: CGFloat = 1.0, duration: CGFloat, completion:(()->())? = nil) {
+    open func animate(_ targetProgress: CGFloat = 1.0, duration: CGFloat, completion:(()->())? = nil) {
         self.targetProgress = targetProgress
         self.duration = duration
         self.animationCompletion = completion
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
-        displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
     
     /**
      Stops animation.
      */
-    public func stopAnimation() {
+    open func stopAnimation() {
         displayLink?.invalidate()
         animationCompletion?()
     }
@@ -129,7 +129,7 @@ public class Interpolate {
      
      - returns: Array of diffs. CGFloat
      */
-    private func calculateDiff(values: [IPValue]) -> [[CGFloat]] {
+    fileprivate func calculateDiff(_ values: [IPValue]) -> [[CGFloat]] {
         var valuesDiffArray = [[CGFloat]]()
         for i in 0..<(values.count - 1) {
             var diffArray = [CGFloat]()
@@ -151,14 +151,14 @@ public class Interpolate {
      
      - returns: Adjusted progress value. CGFloat.
      */
-    private func internalAdjustedProgress(progressValue: CGFloat) -> CGFloat {
+    fileprivate func internalAdjustedProgress(_ progressValue: CGFloat) -> CGFloat {
         return function.apply(progressValue)
     }
     
     /**
      Next function used by animation(). Increments progress based on the duration.
      */
-    @objc private func next() {
+    @objc fileprivate func next() {
         let direction: CGFloat = (targetProgress > progress) ? 1.0 : -1.0
         progress += 1/(self.duration*60)*direction
         if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
@@ -180,5 +180,5 @@ public protocol InterpolationFunction {
      
      - returns: Adjusted progress value. CGFloat.
      */
-    func apply(progress: CGFloat) -> CGFloat
+    func apply(_ progress: CGFloat) -> CGFloat
 }

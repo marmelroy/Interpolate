@@ -62,7 +62,7 @@ class InterpolateTests: XCTestCase {
         let from: CGFloat = 0.0
         let to: CGFloat = 10.0
         var progressTest: CGFloat = 0.0
-        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.EaseIn) { (result) in
+        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.easeIn) { (result) in
             XCTAssertTrue(progressTest*10 > result)
         }
         progressTest = 0.25
@@ -77,7 +77,7 @@ class InterpolateTests: XCTestCase {
         let from: CGFloat = 0.0
         let to: CGFloat = 10.0
         var progressTest: CGFloat = 0.0
-        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.EaseOut) { (result) in
+        let interpolation = Interpolate(from: from, to: to, function: BasicInterpolation.easeOut) { (result) in
             XCTAssertTrue(progressTest*10 < result)
         }
         progressTest = 0.25
