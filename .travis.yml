@@ -1,4 +1,4 @@
-osx_image: xcode7.3
+osx_image: xcode8
 language: objective-c
 env:
   global:
@@ -19,3 +19,4 @@ script: ./build.sh $MODE
 branches:
   only:
     - master
+    - swift3.0
