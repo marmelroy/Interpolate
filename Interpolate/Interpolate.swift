@@ -58,7 +58,7 @@ open class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.linear, apply: ((T) -> ())) {
+    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.linear, apply: @escaping ((T) -> ())) {
         assert(values.count >= 2, "You should provide at least two values")
         let vectorizedValues = values.map({$0.vectorize()})
         self.values = vectorizedValues
@@ -79,7 +79,7 @@ open class Interpolate {
      
      - returns: an Interpolate object.
      */
-    public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.linear, apply: ((T) -> ())) {
+    public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.linear, apply: @escaping ((T) -> ())) {
         let values = [from, to]
         self.init(values: values, function: function, apply: apply)
     }
