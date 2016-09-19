@@ -31,42 +31,42 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = initialBackgroundColor
-        scrollView.contentSize = CGSizeMake(self.view.bounds.size.width*2, self.view.bounds.size.height)
+        scrollView.contentSize = CGSize(width: self.view.bounds.size.width*2, height: self.view.bounds.size.height)
         
         // Logo view
         let logoImage = UIImage(named: "BojackLogo")!
         logoView.image = logoImage
         scrollView.addSubview(logoView)
         logoView.frame.size = logoImage.size
-        logoView.center = CGPointMake(self.view.bounds.size.width/2, 100)
+        logoView.center = CGPoint(x: self.view.bounds.size.width/2, y: 100)
 
         // Bojack view
         let bojackImage = UIImage(named: "Bojack")!
         bojackView.image = bojackImage
         scrollView.addSubview(bojackView)
         bojackView.frame.size = bojackImage.size
-        bojackView.frame.origin = CGPointMake((self.view.bounds.size.width - bojackView.frame.size.width)/2, self.view.bounds.size.height - bojackView.frame.size.height)
+        bojackView.frame.origin = CGPoint(x: (self.view.bounds.size.width - bojackView.frame.size.width)/2, y: self.view.bounds.size.height - bojackView.frame.size.height)
        
         // Bojack shadow view
         let bojackShadowImage = UIImage(named: "BojackShadow")!
         bojackShadowView.image = bojackShadowImage
         self.view.addSubview(bojackShadowView)
         bojackShadowView.frame.size = bojackShadowImage.size
-        bojackShadowView.frame.origin = CGPointMake(-bojackShadowView.frame.size.width, self.view.bounds.size.height - 150 - bojackShadowView.frame.size.height)
+        bojackShadowView.frame.origin = CGPoint(x: -bojackShadowView.frame.size.width, y: self.view.bounds.size.height - 150 - bojackShadowView.frame.size.height)
         
         // Ground view
-        groundView.backgroundColor = UIColor.blackColor()
+        groundView.backgroundColor = UIColor.black
         self.view.addSubview(groundView)
-        groundView.frame.origin = CGPointMake(0, self.view.bounds.size.height)
-        groundView.frame.size = CGSizeMake(self.view.bounds.size.width, 300)
+        groundView.frame.origin = CGPoint(x: 0, y: self.view.bounds.size.height)
+        groundView.frame.size = CGSize(width: self.view.bounds.size.width, height: 300)
 
-        self.view.bringSubviewToFront(pageControl)
+        self.view.bringSubview(toFront: pageControl)
         
         self.setupInterpolations()
     }
     
     func setupInterpolations() {
-        let colors: [UIColor] = [initialBackgroundColor, UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), UIColor.greenColor()]
+        let colors: [UIColor] = [initialBackgroundColor, UIColor(red: 255.0/255.0, green: 80.0/255.0, blue: 43.0/255.0, alpha: 1.0), UIColor.green]
         backgroundColorChange = Interpolate(values: colors, apply: { [weak self]  (color) in
             self?.view.backgroundColor = color
         })
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self?.bojackShadowView.frame.origin.x = originX
         })
         
-        groundPosition = Interpolate(from: CGPointMake(0, self.view.bounds.size.height), to: CGPointMake(0, self.view.bounds.size.height - 150), function: BasicInterpolation.EaseOut, apply: { [weak self] (origin) in
+        groundPosition = Interpolate(from: CGPoint(x: 0, y: self.view.bounds.size.height), to: CGPoint(x: 0, y: self.view.bounds.size.height - 150), function: BasicInterpolation.easeOut, apply: { [weak self] (origin) in
             self?.groundView.frame.origin = origin
         })
         
@@ -91,7 +91,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK: UIScrollViewDelegate
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollProgress = scrollView.contentOffset.x / (scrollView.contentSize.width - scrollView.frame.size.width)
         let currentPage = scrollView.contentOffset.x / scrollView.frame.size.width
         pageControl.currentPage = lround(Double(currentPage))

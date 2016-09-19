@@ -25,31 +25,31 @@ public protocol Interpolatable {
 
 public enum InterpolatableType {
     /// CATransform3D type.
-    case CATransform3D
+    case caTransform3D
     /// CGAffineTransform type.
-    case CGAffineTransform
+    case cgAffineTransform
     /// CGFloat type.
-    case CGFloat
+    case cgFloat
     /// CGPoint type.
-    case CGPoint
+    case cgPoint
     /// CGRect type.
-    case CGRect
+    case cgRect
     /// CGSize type.
-    case CGSize
+    case cgSize
     /// ColorHSB type.
-    case ColorHSB
+    case colorHSB
     /// ColorMonochrome type.
-    case ColorMonochrome
+    case colorMonochrome
     /// ColorRGB type.
-    case ColorRGB
+    case colorRGB
     /// Double type.
-    case Double
+    case double
     /// Int type.
-    case Int
+    case int
     /// NSNumber type.
-    case NSNumber
+    case nsNumber
     /// UIEdgeInsets type.
-    case UIEdgeInsets
+    case uiEdgeInsets
 }
 
 // MARK: Extensions
@@ -62,7 +62,7 @@ extension CATransform3D: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CATransform3D, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
+        return IPValue(type: .caTransform3D, vectors: [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44])
     }
 }
 
@@ -74,7 +74,7 @@ extension CGAffineTransform: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGAffineTransform, vectors: [a, b, c, d, tx, ty])
+        return IPValue(type: .cgAffineTransform, vectors: [a, b, c, d, tx, ty])
     }
 }
 
@@ -86,7 +86,7 @@ extension CGFloat: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGFloat, vectors: [self])
+        return IPValue(type: .cgFloat, vectors: [self])
     }
 }
 
@@ -98,7 +98,7 @@ extension CGPoint: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGPoint, vectors: [x, y])
+        return IPValue(type: .cgPoint, vectors: [x, y])
     }
 }
 
@@ -110,7 +110,7 @@ extension CGRect: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGRect, vectors: [origin.x, origin.y, size.width, size.height])
+        return IPValue(type: .cgRect, vectors: [origin.x, origin.y, size.width, size.height])
     }
 }
 
@@ -122,7 +122,7 @@ extension CGSize: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .CGSize, vectors: [width, height])
+        return IPValue(type: .cgSize, vectors: [width, height])
     }
 }
 
@@ -134,7 +134,7 @@ extension Double: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .Double, vectors: [CGFloat(self)])
+        return IPValue(type: .double, vectors: [CGFloat(self)])
     }
 }
 
@@ -146,7 +146,7 @@ extension Int: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .Int, vectors: [CGFloat(self)])
+        return IPValue(type: .int, vectors: [CGFloat(self)])
     }
 }
 
@@ -158,7 +158,7 @@ extension NSNumber: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .NSNumber, vectors: [CGFloat(self)])
+        return IPValue(type: .nsNumber, vectors: [CGFloat(self)])
     }
 }
 
@@ -173,20 +173,20 @@ extension UIColor: Interpolatable {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         
         if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
-            return IPValue(type: .ColorRGB, vectors: [red, green, blue, alpha])
+            return IPValue(type: .colorRGB, vectors: [red, green, blue, alpha])
         }
         
         var white: CGFloat = 0
         
         if getWhite(&white, alpha: &alpha) {
-            return IPValue(type: .ColorMonochrome, vectors: [white, alpha])
+            return IPValue(type: .colorMonochrome, vectors: [white, alpha])
         }
         
         var hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0
         
         getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         
-        return IPValue(type: .ColorHSB, vectors: [hue, saturation, brightness, alpha])
+        return IPValue(type: .colorHSB, vectors: [hue, saturation, brightness, alpha])
     }
 }
 
@@ -198,12 +198,12 @@ extension UIEdgeInsets: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .UIEdgeInsets, vectors: [top, left, bottom, right])
+        return IPValue(type: .uiEdgeInsets, vectors: [top, left, bottom, right])
     }
 }
 
 /// IPValue class. Contains a vectorized version of an Interpolatable type.
-public class IPValue {
+open class IPValue {
     
     let type: InterpolatableType
     var vectors: [CGFloat]
@@ -220,31 +220,31 @@ public class IPValue {
     
     func toInterpolatable() -> Interpolatable {
         switch type {
-            case .CATransform3D:
+            case .caTransform3D:
                 return CATransform3D(m11: vectors[0], m12: vectors[1], m13: vectors[2], m14: vectors[3], m21: vectors[4], m22: vectors[5], m23: vectors[6], m24: vectors[7], m31: vectors[8], m32: vectors[9], m33: vectors[10], m34: vectors[11], m41: vectors[12], m42: vectors[13], m43: vectors[14], m44: vectors[15])
-            case .CGAffineTransform:
+            case .cgAffineTransform:
                 return CGAffineTransform(a: vectors[0], b: vectors[1], c: vectors[2], d: vectors[3], tx: vectors[4], ty: vectors[5])
-            case .CGFloat:
+            case .cgFloat:
                 return vectors[0]
-            case .CGPoint:
+            case .cgPoint:
                 return CGPoint(x: vectors[0], y: vectors[1])
-            case .CGRect:
+            case .cgRect:
                 return CGRect(x: vectors[0], y: vectors[1], width: vectors[2], height: vectors[3])
-            case .CGSize:
+            case .cgSize:
                 return CGSize(width: vectors[0], height: vectors[1])
-            case .ColorRGB:
+            case .colorRGB:
                 return UIColor(red: vectors[0], green: vectors[1], blue: vectors[2], alpha: vectors[3])
-            case .ColorMonochrome:
+            case .colorMonochrome:
                 return UIColor(white: vectors[0], alpha: vectors[1])
-            case .ColorHSB:
+            case .colorHSB:
                 return UIColor(hue: vectors[0], saturation: vectors[1], brightness: vectors[2], alpha: vectors[3])
-            case .Double:
+            case .double:
                 return vectors[0]
-            case .Int:
+            case .int:
                 return vectors[0]
-            case .NSNumber:
+            case .nsNumber:
                 return vectors[0]
-            case .UIEdgeInsets:
+            case .uiEdgeInsets:
                 return UIEdgeInsetsMake(vectors[0], vectors[1], vectors[2], vectors[3])
         }
     }

@@ -33,7 +33,7 @@ class InterpolatableTests: XCTestCase {
     }
 
     func testVectorizeNSNumber() {
-        let original = NSNumber(double: 40)
+        let original = NSNumber(value: 40)
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 1)
         XCTAssertEqual(vector.vectors[0], 40)
@@ -61,7 +61,7 @@ class InterpolatableTests: XCTestCase {
     }
     
     func testVectorizeCGAffineTransform() {
-        let original = CGAffineTransformMakeScale(0.5, 0.6)
+        let original = CGAffineTransform(scaleX: 0.5, y: 0.6)
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 6)
         XCTAssertEqual(vector.vectors[0], 0.5)
@@ -75,7 +75,7 @@ class InterpolatableTests: XCTestCase {
     }
 
     func testVectorizeUIColor() {
-        let original = UIColor.redColor()
+        let original = UIColor.red
         let vector = original.vectorize()
         XCTAssertTrue(vector.vectors.count == 4)
         XCTAssertEqual(vector.vectors[0], 1.0)
