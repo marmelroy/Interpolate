@@ -58,6 +58,19 @@ class InterpolateTests: XCTestCase {
         interpolation.progress = progressTest
     }
     
+    func testLinearInterpolationInferredDoubles() {
+        var progressTest: CGFloat = 0.0
+        let interpolation = Interpolate(from: 0.0, to: 10.0, apply: { (result) in
+            XCTAssertEqual(Double(progressTest)*10, result)
+        })
+        progressTest = 0.25
+        interpolation.progress = progressTest
+        progressTest = 0.5
+        interpolation.progress = progressTest
+        progressTest = 0.75
+        interpolation.progress = progressTest
+    }
+    
     func testEaseInInterpolation() {
         let from: CGFloat = 0.0
         let to: CGFloat = 10.0

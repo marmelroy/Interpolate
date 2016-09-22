@@ -239,11 +239,11 @@ open class IPValue {
             case .colorHSB:
                 return UIColor(hue: vectors[0], saturation: vectors[1], brightness: vectors[2], alpha: vectors[3])
             case .double:
-                return vectors[0]
+                return Double(vectors[0])
             case .int:
-                return vectors[0]
+                return Int(vectors[0])
             case .nsNumber:
-                return vectors[0]
+                return NSNumber(value: Double(vectors[0]))
             case .uiEdgeInsets:
                 return UIEdgeInsetsMake(vectors[0], vectors[1], vectors[2], vectors[3])
         }
