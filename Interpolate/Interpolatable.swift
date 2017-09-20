@@ -158,7 +158,7 @@ extension NSNumber: Interpolatable {
      - returns: IPValue
      */
     public func vectorize() -> IPValue {
-        return IPValue(type: .nsNumber, vectors: [CGFloat(self)])
+        return IPValue(type: .nsNumber, vectors: [CGFloat(truncating: self)])
     }
 }
 
