@@ -65,7 +65,7 @@ open class Interpolate {
      */
     public init<T: Interpolatable>(values: [T],
                                    function: InterpolationFunction = BasicInterpolation.linear,
-                                   ProgressClosure: ProgressClosure?,
+                                   ProgressClosure: ProgressClosure? = nil,
                                    apply: @escaping ((T) -> ())) {
         assert(values.count >= 2, "You should provide at least two values")
         self.ProgressClosure = ProgressClosure
@@ -92,7 +92,6 @@ open class Interpolate {
         let values = [from, to]
         self.init(values: values,
                   function: function,
-                  ProgressClosure: nil,
                   apply: apply)
     }
     
