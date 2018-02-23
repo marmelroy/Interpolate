@@ -67,6 +67,31 @@ For other types of gesture recognizers that only report a beginning and an end (
     }
 }
 ```
+You can also set a custom progress calculation closure if you need, returning a tuple with a new percent value AND a boolean indicating if the animation should stop :
+```swift
+let startDate = Date()
+let endDate = startDate.addingTimeInterval(10)
+
+let diff = endDate.timeIntervalSince(startDate)
+
+let percentClosure: ProgressClosure = { (_) -> (CGFloat, Bool) in
+let now = Date().timeIntervalSince(startDate)
+let _percent = CGFloat((diff - now) / diff)
+let percent = 1 - max(0, min(_percent, 1))
+// return new percent and indicate if the animation should stop
+return (newPercent: percent, shouldStop: percent == 1)
+}
+
+let colorChange = Interpolate(from: UIColor.red,
+to: UIColor.black,
+percentClosure: percentClosure) { [weak self] (color) in
+self?.view.backgroundColor = color
+}
+
+colorChange.animate {
+print("completed")
+}
+```
 
 To stop an animation:
 ```swift

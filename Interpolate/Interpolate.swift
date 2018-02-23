@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias ProgressClosure = ((CGFloat) -> (newProgress: CGFloat, shouldStop: Bool))
+
 /// Interpolate class. Responsible for conducting interpolations.
 open class Interpolate {
     
@@ -43,23 +45,30 @@ open class Interpolate {
     fileprivate var apply: ((Interpolatable) -> ())?
     fileprivate var displayLink: CADisplayLink?
     
+    fileprivate var ProgressClosure: ProgressClosure?
+    
     // Animation completion handler, called when animate function stops.
     fileprivate var animationCompletion:(()->())?
     
     //MARK: Lifecycle
     
-
+    
     /**
      Initialises an Interpolate object.
      
-     - parameter values:   Array of interpolatable objects, in order.
-     - parameter apply:    Apply closure.
-     - parameter function: Interpolation function (Basic / Spring / Custom).
+     - parameter values:            Array of interpolatable objects, in order.
+     - parameter apply:             Apply closure.
+     - parameter function:          Interpolation function (Basic / Spring / Custom).
+     - parameter ProgressClosure:    Custom percent calculation closure
      
      - returns: an Interpolate object.
      */
-    public init<T: Interpolatable>(values: [T], function: InterpolationFunction = BasicInterpolation.linear, apply: @escaping ((T) -> ())) {
+    public init<T: Interpolatable>(values: [T],
+                                   function: InterpolationFunction = BasicInterpolation.linear,
+                                   ProgressClosure: ProgressClosure?,
+                                   apply: @escaping ((T) -> ())) {
         assert(values.count >= 2, "You should provide at least two values")
+        self.ProgressClosure = ProgressClosure
         let vectorizedValues = values.map({$0.vectorize()})
         self.values = vectorizedValues
         self.current = IPValue(value: self.values[0])
@@ -81,10 +90,36 @@ open class Interpolate {
      */
     public convenience init<T: Interpolatable>(from: T, to: T, function: InterpolationFunction = BasicInterpolation.linear, apply: @escaping ((T) -> ())) {
         let values = [from, to]
-        self.init(values: values, function: function, apply: apply)
+        self.init(values: values,
+                  function: function,
+                  ProgressClosure: nil,
+                  apply: apply)
     }
-
-
+    
+    /**
+     Initialises an Interpolate object.
+     
+     - parameter from:     Source interpolatable object.
+     - parameter to:       Target interpolatable object.
+     - parameter apply:    Apply closure.
+     - parameter function: Interpolation function (Basic / Spring / Custom).
+     - parameter ProgressClosure:    Custom percent calculation closure
+     
+     - returns: an Interpolate object.
+     */
+    public convenience init<T: Interpolatable>(from: T,
+                                               to: T,
+                                               function: InterpolationFunction = BasicInterpolation.linear,
+                                               ProgressClosure: @escaping ProgressClosure,
+                                               apply: @escaping ((T) -> ())) {
+        let values = [from, to]
+        self.init(values: values,
+                  function: function,
+                  ProgressClosure: ProgressClosure,
+                  apply: apply)
+    }
+    
+    
     
     /**
      Invalidates the apply function
@@ -92,7 +127,7 @@ open class Interpolate {
     open func invalidate() {
         apply = nil
     }
-
+    
     //MARK: Animation
     
     /**
@@ -105,6 +140,17 @@ open class Interpolate {
     open func animate(_ targetProgress: CGFloat = 1.0, duration: CGFloat, completion:(()->())? = nil) {
         self.targetProgress = targetProgress
         self.duration = duration
+        self.animationCompletion = completion
+        displayLink?.invalidate()
+        displayLink = CADisplayLink(target: self, selector: #selector(next))
+        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+    }
+    
+    /**
+     Animates to a targetProgress with a given duration.
+     - parameter completion:     Completion handler. Optional.
+     */
+    open func animate(completion:(()->())? = nil) {
         self.animationCompletion = completion
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
@@ -143,7 +189,7 @@ open class Interpolate {
         }
         return valuesDiffArray
     }
-
+    
     /**
      Adjusted progress using interpolation function.
      
@@ -159,10 +205,19 @@ open class Interpolate {
      Next function used by animation(). Increments progress based on the duration.
      */
     @objc fileprivate func next() {
-        let direction: CGFloat = (targetProgress > progress) ? 1.0 : -1.0
-        progress += 1/(self.duration*60)*direction
-        if (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) {
-            progress = targetProgress
+        let forcedProgress = self.ProgressClosure?(self.progress)
+        if let forcedProgress = forcedProgress {
+            self.progress = forcedProgress.newProgress
+            if forcedProgress.shouldStop {
+                stopAnimation()
+            }
+        } else {
+            let direction: CGFloat = (targetProgress > progress) ? 1.0 : -1.0
+            self.progress += 1/(self.duration*60)*direction
+            guard (direction > 0 && progress >= targetProgress) || (direction < 0 && progress <= targetProgress) else {
+                return
+            }
+            self.progress = targetProgress
             stopAnimation()
         }
     }
@@ -182,3 +237,4 @@ public protocol InterpolationFunction {
      */
     func apply(_ progress: CGFloat) -> CGFloat
 }
+
