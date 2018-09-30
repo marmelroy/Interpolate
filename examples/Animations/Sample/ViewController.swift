@@ -60,7 +60,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         groundView.frame.origin = CGPoint(x: 0, y: self.view.bounds.size.height)
         groundView.frame.size = CGSize(width: self.view.bounds.size.width, height: 300)
 
-        self.view.bringSubview(toFront: pageControl)
+        self.view.bringSubviewToFront(pageControl)
         
         self.setupInterpolations()
     }
