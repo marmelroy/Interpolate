@@ -108,7 +108,7 @@ open class Interpolate {
         self.animationCompletion = completion
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(next))
-        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     /**
