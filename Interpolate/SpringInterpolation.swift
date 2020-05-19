@@ -19,6 +19,7 @@
 //  Created by Roy Marmelstein on 30/04/2016.
 //  Copyright © 2016 Roy Marmelstein. All rights reserved.
 //
+import UIKit
 
 /// Spring interpolation
 open class SpringInterpolation: InterpolationFunction {
