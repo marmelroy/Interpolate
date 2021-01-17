@@ -6,7 +6,7 @@
 //  Copyright © 2016 Roy Marmelstein. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /**
  Basic interpolation function.
